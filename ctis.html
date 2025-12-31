@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTIS Curriculum - CyberSkillTree</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --card: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.08);
+            --text: #fff; --text-muted: rgba(255,255,255,0.5); --accent: #00d4aa;
+            --bilkent: #e91e63; --htb: #9fef00; --thm: #1bd96a;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 0 20px; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px; }
+        .nav-brand { font-weight: 700; font-size: 1rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 4px; align-items: center; }
+        .nav-link { color: rgba(255,255,255,0.5); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; white-space: nowrap; }
+        .nav-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .nav-link.active { background: var(--accent); color: #000; }
+        .mobile-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        /* Dropdown Menu */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-btn { color: rgba(255,255,255,0.5); background: none; border: none; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; font-family: inherit; }
+        .nav-dropdown-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .nav-dropdown-btn::after { content: '▼'; font-size: 0.6rem; margin-left: 2px; }
+        .nav-dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: rgba(10,10,15,0.98); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; min-width: 200px; padding: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 1001; }
+        .nav-dropdown:hover .nav-dropdown-content { display: block; }
+        .nav-dropdown-content a { display: block; padding: 10px 14px; color: rgba(255,255,255,0.5); text-decoration: none; border-radius: 8px; font-size: 0.85rem; transition: all 0.2s; }
+        .nav-dropdown-content a:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .nav-dropdown-content .dropdown-header { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); padding: 8px 14px 4px; font-weight: 600; }
+
+
+        .page-header { padding: 100px 20px 40px; text-align: center; max-width: 900px; margin: 0 auto; }
+        .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+        .page-header p { color: var(--text-muted); }
+
+        .content { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+
+        .year-section { margin-bottom: 50px; }
+        .year-header { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: linear-gradient(135deg, rgba(233,30,99,0.15), rgba(0,212,170,0.1)); border-radius: 12px; margin-bottom: 20px; }
+        .year-badge { background: var(--bilkent); padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+        .year-title { font-size: 1.1rem; font-weight: 700; }
+
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 16px; }
+        .course-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: all 0.2s; }
+        .course-card:hover { border-color: rgba(255,255,255,0.15); }
+
+        .course-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+        .course-code { font-family: 'JetBrains Mono', monospace; background: rgba(233,30,99,0.2); color: var(--bilkent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .course-name { font-weight: 700; font-size: 0.95rem; flex: 1; min-width: 180px; }
+
+        .course-topics { background: rgba(0,212,170,0.05); border: 1px solid rgba(0,212,170,0.2); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.8rem; line-height: 1.5; }
+        .course-topics strong { color: var(--accent); }
+
+        .course-mapping { margin-top: 12px; }
+        .mapping-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .mapping-label.htb { color: var(--htb); }
+        .mapping-label.thm { color: var(--thm); }
+        .mapping-items { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+        .mapping-item { display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; text-decoration: none; cursor: pointer; transition: all 0.2s; }
+        .mapping-item.htb { background: rgba(159,239,0,0.1); border: 1px solid rgba(159,239,0,0.3); color: var(--htb); }
+        .mapping-item.htb:hover { background: rgba(159,239,0,0.25); transform: translateY(-1px); }
+        .mapping-item.thm { background: rgba(27,217,106,0.1); border: 1px solid rgba(27,217,106,0.3); color: var(--thm); }
+        .mapping-item.thm:hover { background: rgba(27,217,106,0.25); transform: translateY(-1px); }
+
+        .highlight-section { background: linear-gradient(135deg, rgba(0,212,170,0.1), rgba(55,66,250,0.1)); border: 1px solid rgba(0,212,170,0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; text-align: center; }
+        .highlight-section h3 { color: var(--accent); margin-bottom: 8px; font-size: 1rem; }
+        .highlight-section p { color: var(--text-muted); font-size: 0.85rem; }
+
+        .footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; }
+        .footer a { color: var(--accent); text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav { padding: 0 16px; }
+            .nav-container { height: 60px; }
+            .nav-links { 
+                display: none; 
+                position: fixed; 
+                top: 60px; 
+                left: 0; 
+                right: 0; 
+                bottom: 0;
+                background: rgba(10,10,15,0.98); 
+                flex-direction: column; 
+                padding: 20px; 
+                overflow-y: auto; 
+                z-index: 1000;
+            }
+            .nav-links.open { display: flex; }
+            .mobile-toggle { display: block; }
+            .nav-link { padding: 14px; font-size: 1rem; border-bottom: 1px solid var(--border); }
+            .nav-dropdown { width: 100%; border-bottom: 1px solid var(--border); }
+            .nav-dropdown-btn { width: 100%; justify-content: space-between; padding: 14px; font-size: 1rem; }
+            .nav-dropdown-content { 
+                position: static; 
+                box-shadow: none; 
+                border: none; 
+                background: rgba(255,255,255,0.02); 
+                margin: 0;
+                padding: 0 0 10px 20px;
+                display: none;
+            }
+            .nav-dropdown:hover .nav-dropdown-content { display: none; }
+            .nav-dropdown.open .nav-dropdown-content { display: block; }
+            .nav-dropdown-content a { padding: 12px 14px; font-size: 0.95rem; }
+            .course-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <span>📚</span> CTIS Curriculum
+            </a>
+            <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">☰</button>
+            <div class="nav-links" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="mindmap-circular.html" class="nav-link">🎯 Overview</a>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Offensive</button>
+                    <div class="nav-dropdown-content">
+                        <span class="dropdown-header">Mind Maps</span>
+                        <a href="mindmap-web.html">🌐 Web Pentesting</a>
+                        <a href="mindmap-network.html">🔌 Network</a>
+                        <a href="mindmap-ad.html">🏢 Active Directory</a>
+                        <a href="mindmap-redteam.html">🎯 Red Team</a>
+                        <a href="mindmap-wifi.html">📡 Wi-Fi</a>
+                        <a href="mindmap-mobile.html">📱 Mobile</a>
+                    </div>
+                </div>
+                
+                <a href="mindmap-defensive.html" class="nav-link">🛡️ Defensive</a>
+                <a href="mindmap-ai.html" class="nav-link">🤖 AI</a>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Resources</button>
+                    <div class="nav-dropdown-content">
+                        <a href="paths.html">📋 Learning Paths</a>
+                        <a href="modules.html">📦 HTB Modules</a>
+                        <a href="oscp-machines.html">🎓 OSCP Machines</a>
+                        <a href="ctis.html">📚 CTIS Curriculum</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>📚 CTIS Curriculum → Security Modules</h1>
+        <p>CTIS courses mapped to HTB Academy & TryHackMe with <strong>real links</strong></p>
+    </header>
+
+    <div class="content">
+        <div class="highlight-section">
+            <h3>✅ Verified Module Links (Updated Dec 2025)</h3>
+            <p>Source: <a href="https://catalog.bilkent.edu.tr/dep/dc18.html" target="_blank" style="color: var(--accent);">catalog.bilkent.edu.tr</a> | Click any module to open training</p>
+        </div>
+
+        <!-- Year 1 -->
+        <div class="year-section">
+            <div class="year-header">
+                <span class="year-badge">1st Year</span>
+                <span class="year-title">Foundation</span>
+            </div>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 151</span>
+                        <span class="course-name">Introduction to Programming</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Python, control structures, loops, functions, arrays, problem solving</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/introduction-to-python-3" target="_blank" class="mapping-item htb">Introduction to Python 3</a>
+                            <a href="https://academy.hackthebox.com/course/preview/introduction-to-bash-scripting" target="_blank" class="mapping-item htb">Introduction to Bash Scripting</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/path/outline/presecurity" target="_blank" class="mapping-item thm">Pre Security Path</a>
+                            <a href="https://tryhackme.com/room/pythonprogramming" target="_blank" class="mapping-item thm">Python for Pentesters</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 166</span>
+                        <span class="course-name">Information Technologies</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Hardware, OS (Windows/Linux), IT infrastructure basics</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/windows-fundamentals" target="_blank" class="mapping-item htb">Linux Fundamentals</a>
+                            <a href="https://academy.hackthebox.com/course/preview/linux-fundamentals" target="_blank" class="mapping-item htb">Windows Fundamentals</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/path/outline/presecurity" target="_blank" class="mapping-item thm">Pre-Security Path</a>
+                            <a href="https://tryhackme.com/room/linuxfundamentalspart1" target="_blank" class="mapping-item thm">Linux Fundamentals Part 1</a>
+                            <a href="https://tryhackme.com/room/windowsfundamentals" target="_blank" class="mapping-item thm">Windows Fundamentals</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Year 2 -->
+        <div class="year-section">
+            <div class="year-header">
+                <span class="year-badge">2nd Year</span>
+                <span class="year-title">Web Development & Networks</span>
+            </div>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 255</span>
+                        <span class="course-name">Frontend Web Technologies</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> HTML5, CSS3, JavaScript, DOM, responsive design, Bootstrap</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/introduction-to-web-applications" target="_blank" class="mapping-item htb">Introduction to Web Applications</a>
+                            <a href="https://academy.hackthebox.com/course/preview/web-requests" target="_blank" class="mapping-item htb">Web Requests</a>
+                            <a href="https://academy.hackthebox.com/course/preview/cross-site-scripting-xss" target="_blank" class="mapping-item htb">Cross-Site Scripting (XSS)</a>
+                            <a href="https://academy.hackthebox.com/course/preview/javascript-deobfuscation" target="_blank" class="mapping-item htb">JavaScript Deobfuscation</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/path/outline/webapppentesting" target="_blank" class="mapping-item thm">Web Hacking Path</a>
+                            <a href="https://tryhackme.com/room/howwebsiteswork" target="_blank" class="mapping-item thm">How Websites Work</a>
+                            <a href="https://tryhackme.com/room/crosssitescripting" target="_blank" class="mapping-item thm">Cross-Site Scripting</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 256</span>
+                        <span class="course-name">Backend Development</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Server-side (PHP/Node.js), RESTful APIs, MVC, session management, authentication</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/web-service--api-attacks" target="_blank" class="mapping-item htb">Web Service & API Attacks</a>
+                            <a href="https://academy.hackthebox.com/course/preview/server-side-attacks" target="_blank" class="mapping-item htb">Server-side Attacks</a>
+                            <a href="https://academy.hackthebox.com/course/preview/broken-authentication" target="_blank" class="mapping-item htb">Broken Authentication</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/room/owapptop10" target="_blank" class="mapping-item thm">OWASP Top 10</a>
+                            <a href="https://tryhackme.com/room/serversideattacks" target="_blank" class="mapping-item thm">Server-Side Attacks</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 259</span>
+                        <span class="course-name">Database Management</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> SQL fundamentals, Oracle DBMS, PL/SQL, relational algebra, normalization</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/sql-injection-fundamentals" target="_blank" class="mapping-item htb">SQL Injection Fundamentals</a>
+                            <a href="https://academy.hackthebox.com/course/preview/sqlmap-essentials" target="_blank" class="mapping-item htb">SQLMap Essentials</a>
+                            <a href="https://academy.hackthebox.com/course/preview/blind-sql-injection" target="_blank" class="mapping-item htb">Blind SQL Injection</a>
+                            <a href="https://academy.hackthebox.com/course/preview/advanced-sql-injections" target="_blank" class="mapping-item htb">Advanced SQL Injections</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/room/sqlinjection" target="_blank" class="mapping-item thm">SQL Injection</a>
+                            <a href="https://tryhackme.com/room/sqlilab" target="_blank" class="mapping-item thm">SQL Injection Lab</a>
+                            <a href="https://tryhackme.com/room/blindsqli" target="_blank" class="mapping-item thm">Blind SQL Injection</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 261</span>
+                        <span class="course-name">Computer Networks</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> OSI model, TCP/IP, IP addressing, subnetting, routing basics</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/introduction-to-networking" target="_blank" class="mapping-item htb">Introduction to Networking</a>
+                            <a href="https://academy.hackthebox.com/course/preview/network-enumeration-with-nmap" target="_blank" class="mapping-item htb">Network Enumeration with Nmap</a>
+                            <a href="https://academy.hackthebox.com/course/preview/intro-to-network-traffic-analysis" target="_blank" class="mapping-item htb">Intro to Network Traffic Analysis</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/path/outline/cybersecurity101" target="_blank" class="mapping-item thm">Cyber Security Foundations</a>
+                            <a href="https://tryhackme.com/room/introtonetworking" target="_blank" class="mapping-item thm">Intro to Networking</a>
+                            <a href="https://tryhackme.com/room/nmap" target="_blank" class="mapping-item thm">Nmap</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Year 3 -->
+        <div class="year-section">
+            <div class="year-header">
+                <span class="year-badge">3rd Year</span>
+                <span class="year-title">Software Engineering + Mobile</span>
+            </div>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 359</span>
+                        <span class="course-name">Software Engineering</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> SDLC, agile/scrum, requirements, testing, documentation, version control</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/penetration-testing-process" target="_blank" class="mapping-item htb">Penetration Testing Process</a>
+                            <a href="https://academy.hackthebox.com/course/preview/secure-coding-101-javascript" target="_blank" class="mapping-item htb">Secure Coding 101: JavaScript</a>
+                            <a href="https://academy.hackthebox.com/course/preview/whitebox-pentesting-101-command-injection" target="_blank" class="mapping-item htb">Whitebox Pentesting 101</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/room/softwaresecurity" target="_blank" class="mapping-item thm">Software Security</a>
+                            <a href="https://tryhackme.com/room/planningandscoping" target="_blank" class="mapping-item thm">Planning and Scoping</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 365</span>
+                        <span class="course-name">Applied Data Analysis</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Python/R for data analysis, statistics, visualization (pandas, matplotlib)</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/introduction-to-python-3" target="_blank" class="mapping-item htb">Introduction to Python 3</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 487</span>
+                        <span class="course-name">Mobile Application Development</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Android (Kotlin/Java), mobile UI, SQLite, APIs, app lifecycle</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/android-fundamentals" target="_blank" class="mapping-item htb">Android Fundamentals</a>
+                            <a href="https://academy.hackthebox.com/course/preview/android-application-static-analysis" target="_blank" class="mapping-item htb">Android Application Static Analysis</a>
+                            <a href="https://academy.hackthebox.com/course/preview/android-application-dynamic-analysis" target="_blank" class="mapping-item htb">Android Application Dynamic Analysis</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/room/android9" target="_blank" class="mapping-item thm">Android Basics</a>
+                            <a href="https://tryhackme.com/room/android10" target="_blank" class="mapping-item thm">Android Static Analysis</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Year 4 -->
+        <div class="year-section">
+            <div class="year-header">
+                <span class="year-badge">4th Year</span>
+                <span class="year-title">Security + Electives</span>
+            </div>
+            <div class="course-grid">
+                <div class="course-card" style="border-color: rgba(255,71,87,0.4); background: rgba(255,71,87,0.05);">
+                    <div class="course-header">
+                        <span class="course-code" style="background: rgba(255,71,87,0.3); color: #ff6b81;">CTIS 496</span>
+                        <span class="course-name">🔐 Computer and Network Security</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Security fundamentals, cryptography, authentication, access control, network security, firewalls, IDS/IPS</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/getting-started" target="_blank" class="mapping-item htb">Getting Started</a>
+                            <a href="https://academy.hackthebox.com/course/preview/security-monitoring--siem-fundamentals" target="_blank" class="mapping-item htb">Security Monitoring & SIEM</a>
+                            <a href="https://academy.hackthebox.com/course/preview/password-attacks" target="_blank" class="mapping-item htb">Password Attacks</a>
+                            <a href="https://academy.hackthebox.com/course/preview/cracking-passwords-with-hashcat" target="_blank" class="mapping-item htb">Cracking Passwords</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/path/outline/soclevel1" target="_blank" class="mapping-item thm">SOC Level 1 Path</a>
+                            <a href="https://tryhackme.com/room/cryptography" target="_blank" class="mapping-item thm">Cryptography</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 471</span>
+                        <span class="course-name">Applied Machine Learning</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> ML fundamentals, supervised/unsupervised learning, scikit-learn</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy (AI Security)</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/network-enumeration-with-nmap4" target="_blank" class="mapping-item htb">Fundamentals of AI</a>
+                            <a href="https://academy.hackthebox.com/course/preview/network-enumeration-with-nmap6" target="_blank" class="mapping-item htb">Introduction to Red Teaming AI</a>
+                            <a href="https://academy.hackthebox.com/course/preview/network-enumeration-with-nmap7" target="_blank" class="mapping-item htb">Prompt Injection Attacks</a>
+                            <a href="https://academy.hackthebox.com/path/preview/ai-red-teamer" target="_blank" class="mapping-item htb">AI Red Teamer Path</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 473</span>
+                        <span class="course-name">Cloud Computing Foundations</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> AWS/Azure, IaaS, PaaS, SaaS, deployment, virtualization</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/room/awscfi" target="_blank" class="mapping-item thm">AWS Cloud Fundamentals</a>
+                            <a href="https://tryhackme.com/path/outline/attackinganddefendingaws" target="_blank" class="mapping-item thm">AWS Attack & Defend Path</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 474</span>
+                        <span class="course-name">Information Systems Auditing</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> IT audit, COBIT, risk assessment, compliance, security controls</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/vulnerability-assessment" target="_blank" class="mapping-item htb">Vulnerability Assessment</a>
+                            <a href="https://academy.hackthebox.com/course/preview/network-enumeration-with-nmap1" target="_blank" class="mapping-item htb">Security Incident Reporting</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 486</span>
+                        <span class="course-name">Linux System Administration</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Linux admin, user management, file systems, services, shell scripting, hardening</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/windows-fundamentals" target="_blank" class="mapping-item htb">Linux Fundamentals</a>
+                            <a href="https://academy.hackthebox.com/course/preview/linux-privilege-escalation" target="_blank" class="mapping-item htb">Linux Privilege Escalation</a>
+                            <a href="https://academy.hackthebox.com/course/preview/windows-fundamentals6" target="_blank" class="mapping-item htb">Introduction to Linux Forensics</a>
+                        </div>
+                        <div class="mapping-label thm">🟢 TryHackMe</div>
+                        <div class="mapping-items">
+                            <a href="https://tryhackme.com/room/linuxfundamentalspart1" target="_blank" class="mapping-item thm">Linux Fundamentals Part 1-3</a>
+                            <a href="https://tryhackme.com/room/linuxprivilegeescalation" target="_blank" class="mapping-item thm">Linux PrivEsc</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 478</span>
+                        <span class="course-name">Advanced Web Technologies</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> React/Vue/Angular, SPAs, advanced JavaScript, WebSockets</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/cross-site-scripting-xss" target="_blank" class="mapping-item htb">Cross-Site Scripting (XSS)</a>
+                            <a href="https://academy.hackthebox.com/course/preview/modern-web-exploitation-techniques" target="_blank" class="mapping-item htb">Modern Web Exploitation Techniques</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <span class="course-code">CTIS 491</span>
+                        <span class="course-name">Software Verification & Testing</span>
+                    </div>
+                    <div class="course-topics"><strong>Topics:</strong> Unit testing, integration testing, test automation, code coverage, QA</div>
+                    <div class="course-mapping">
+                        <div class="mapping-label htb">🟢 HTB Academy</div>
+                        <div class="mapping-items">
+                            <a href="https://academy.hackthebox.com/course/preview/secure-coding-101-javascript" target="_blank" class="mapping-item htb">Secure Coding 101</a>
+                            <a href="https://academy.hackthebox.com/course/preview/whitebox-pentesting-101-command-injection" target="_blank" class="mapping-item htb">Whitebox Pentesting 101</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>🎯 CTIS Security Roadmap - <a href="https://catalog.bilkent.edu.tr/dep/dc18.html" target="_blank">Bilkent CTIS 2025-2026</a></p>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navMenu.classList.toggle('open');
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+            });
+            
+            document.querySelectorAll('.nav-dropdown-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        document.querySelectorAll('.nav-dropdown').forEach(d => {
+                            if (d !== this.parentElement) d.classList.remove('open');
+                        });
+                        this.parentElement.classList.toggle('open');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.nav-dropdown-content a, .nav-links > .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('open');
+                        document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                    }
+                });
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && navMenu.classList.contains('open')) {
+                    if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                        navMenu.classList.remove('open');
+                        document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

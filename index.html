@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTIS Security Roadmap - Bilkent University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --card: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.08);
+            --text: #fff; --text-muted: rgba(255,255,255,0.5); --accent: #00d4aa;
+            --htb: #9fef00; --thm: #1bd96a; --danger: #ff4757; --purple: #9b59b6; --blue: #3498db;
+            --bilkent: #e91e63;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* Navigation */
+        .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 0 20px; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px; }
+        .nav-brand { font-weight: 700; font-size: 1rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 4px; align-items: center; }
+        .nav-link { color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; white-space: nowrap; }
+        .nav-link:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+        .nav-link.active { background: var(--accent); color: #000; }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+        
+        /* Dropdown Menu */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-btn { color: var(--text-muted); background: none; border: none; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; font-family: inherit; }
+        .nav-dropdown-btn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+        .nav-dropdown-btn::after { content: '▼'; font-size: 0.6rem; margin-left: 2px; }
+        .nav-dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: rgba(10,10,15,0.98); border: 1px solid var(--border); border-radius: 12px; min-width: 200px; padding: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 1001; }
+        .nav-dropdown:hover .nav-dropdown-content { display: block; }
+        .nav-dropdown-content a { display: block; padding: 10px 14px; color: var(--text-muted); text-decoration: none; border-radius: 8px; font-size: 0.85rem; transition: all 0.2s; }
+        .nav-dropdown-content a:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+        .nav-dropdown-content .dropdown-header { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); padding: 8px 14px 4px; font-weight: 600; }
+
+        /* Hero Section */
+        .hero { padding: 120px 20px 60px; text-align: center; max-width: 900px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: linear-gradient(135deg, rgba(233,30,99,0.15), rgba(0,212,170,0.1)); border: 1px solid rgba(233,30,99,0.3); border-radius: 25px; font-size: 0.85rem; color: var(--bilkent); margin-bottom: 24px; font-weight: 600; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #e91e63, #00d4aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.3rem; color: var(--text); margin-bottom: 12px; font-weight: 600; }
+        .hero p { color: var(--text-muted); font-size: 1rem; max-width: 650px; margin: 0 auto 30px; line-height: 1.7; }
+
+        /* Stats */
+        .stats { display: flex; justify-content: center; gap: 40px; margin-bottom: 50px; flex-wrap: wrap; }
+        .stat { text-align: center; padding: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; min-width: 120px; }
+        .stat-value { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+        /* About Section */
+        .about { max-width: 900px; margin: 0 auto 60px; padding: 0 20px; }
+        .about-card { background: linear-gradient(135deg, rgba(233,30,99,0.08), rgba(0,212,170,0.05)); border: 1px solid rgba(233,30,99,0.2); border-radius: 20px; padding: 30px; }
+        .about-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: var(--bilkent); display: flex; align-items: center; gap: 10px; }
+        .about-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; }
+        .about-text strong { color: var(--text); }
+        .about-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 20px; }
+        .about-feature { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(0,0,0,0.2); border-radius: 10px; font-size: 0.85rem; }
+        .about-feature span:first-child { font-size: 1.2rem; }
+
+        /* Content */
+        .content { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; }
+
+        /* Section */
+        .section { margin-bottom: 60px; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .section-icon { width: 44px; height: 44px; background: rgba(0,212,170,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; }
+        .section-count { background: rgba(255,255,255,0.1); padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; margin-left: auto; }
+
+        /* Mind Map Cards */
+        .mindmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .mindmap-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; text-decoration: none; color: inherit; }
+        .mindmap-card:hover { border-color: rgba(0,212,170,0.3); transform: translateY(-4px); }
+        .mindmap-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--card-color), transparent); }
+        .mindmap-card.web { --card-color: #e74c3c; }
+        .mindmap-card.network { --card-color: #ff4757; }
+        .mindmap-card.ad { --card-color: #c0392b; }
+        .mindmap-card.redteam { --card-color: #ff4757; }
+        .mindmap-card.defensive { --card-color: #3498db; }
+        .mindmap-card.ai { --card-color: #9b59b6; }
+        .mindmap-card.wifi { --card-color: #f39c12; }
+        .mindmap-card.mobile { --card-color: #e91e63; }
+
+        .mindmap-icon { font-size: 2rem; margin-bottom: 16px; }
+        .mindmap-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .mindmap-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+        .mindmap-meta { display: flex; gap: 16px; font-size: 0.75rem; color: var(--text-muted); }
+        .mindmap-meta span { display: flex; align-items: center; gap: 4px; }
+        .mindmap-meta .htb { color: var(--htb); }
+        .mindmap-meta .thm { color: var(--thm); }
+
+        /* CTIS Courses Section */
+        .ctis-highlight { background: linear-gradient(135deg, rgba(233,30,99,0.1), rgba(0,212,170,0.05)); border: 1px solid rgba(233,30,99,0.2); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+        .ctis-highlight-title { font-size: 1rem; font-weight: 700; color: var(--bilkent); margin-bottom: 8px; }
+        .ctis-highlight-text { font-size: 0.9rem; color: var(--text-muted); }
+
+        .ctis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+        .ctis-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: all 0.2s; }
+        .ctis-card:hover { border-color: rgba(233,30,99,0.3); }
+        .ctis-code { font-family: 'JetBrains Mono', monospace; background: rgba(233,30,99,0.2); color: #e91e63; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; display: inline-block; margin-bottom: 8px; }
+        .ctis-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .ctis-desc { font-size: 0.8rem; color: var(--text-muted); }
+        .ctis-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .ctis-link { padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; text-decoration: none; transition: all 0.2s; }
+        .ctis-link.htb { background: rgba(159,239,0,0.1); color: var(--htb); border: 1px solid rgba(159,239,0,0.2); }
+        .ctis-link.htb:hover { background: rgba(159,239,0,0.2); }
+        .ctis-link.thm { background: rgba(27,217,106,0.1); color: var(--thm); border: 1px solid rgba(27,217,106,0.2); }
+        .ctis-link.thm:hover { background: rgba(27,217,106,0.2); }
+
+        /* Platforms Section */
+        .platforms { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .platform-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; width: 180px; transition: all 0.3s; text-decoration: none; color: var(--text); }
+        .platform-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .platform-icon { font-size: 2rem; margin-bottom: 12px; }
+        .platform-name { font-weight: 600; font-size: 0.9rem; }
+        .platform-type { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* Quick Links */
+        .quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .quick-link { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; transition: all 0.3s; display: flex; align-items: center; gap: 16px; }
+        .quick-link:hover { border-color: var(--accent); transform: translateX(4px); }
+        .quick-link-icon { font-size: 1.8rem; }
+        .quick-link-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+        .quick-link-text p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Footer */
+        .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); }
+        .footer-brand { font-size: 1.1rem; font-weight: 700; color: var(--bilkent); margin-bottom: 8px; }
+        .footer-text { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px; }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-link { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .footer-link:hover { color: var(--accent); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none; 
+                position: fixed; 
+                top: 60px; 
+                left: 0; 
+                right: 0; 
+                bottom: 0;
+                background: rgba(10,10,15,0.98); 
+                flex-direction: column; 
+                padding: 20px; 
+                overflow-y: auto; 
+                z-index: 1000;
+            }
+            .nav-links.open { display: flex; }
+            .mobile-toggle { display: block; }
+            .nav-link { padding: 14px; font-size: 1rem; border-bottom: 1px solid var(--border); }
+            .nav-dropdown { width: 100%; border-bottom: 1px solid var(--border); }
+            .nav-dropdown-btn { width: 100%; justify-content: space-between; padding: 14px; font-size: 1rem; }
+            .nav-dropdown-content { 
+                position: static; 
+                box-shadow: none; 
+                border: none; 
+                background: rgba(255,255,255,0.02); 
+                margin: 0;
+                padding: 0 0 10px 20px;
+                display: none;
+            }
+            .nav-dropdown:hover .nav-dropdown-content { display: none; }
+            .nav-dropdown.open .nav-dropdown-content { display: block; }
+            .nav-dropdown-content a { padding: 12px 14px; font-size: 0.95rem; }
+            
+            .hero { padding: 100px 16px 40px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .hero p { font-size: 0.9rem; }
+            
+            .stats { gap: 12px; }
+            .stat { min-width: 100px; padding: 16px; }
+            .stat-value { font-size: 1.6rem; }
+            
+            .content { padding: 0 16px 60px; }
+            .mindmap-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            
+            .platforms { gap: 12px; }
+            .platform-card { width: calc(50% - 6px); min-width: 140px; }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-brand { font-size: 0.85rem; }
+            .hero h1 { font-size: 1.5rem; }
+            .stats { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .stat { min-width: 80px; }
+            .platform-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <span>🎓</span> CTIS Security Roadmap
+            </a>
+            <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">☰</button>
+            <div class="nav-links" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="mindmap-circular.html" class="nav-link">🎯 Overview</a>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Offensive</button>
+                    <div class="nav-dropdown-content">
+                        <span class="dropdown-header">Mind Maps</span>
+                        <a href="mindmap-web.html">🌐 Web Pentesting</a>
+                        <a href="mindmap-network.html">🔌 Network</a>
+                        <a href="mindmap-ad.html">🏢 Active Directory</a>
+                        <a href="mindmap-redteam.html">🎯 Red Team</a>
+                        <a href="mindmap-wifi.html">📡 Wi-Fi</a>
+                        <a href="mindmap-mobile.html">📱 Mobile</a>
+                    </div>
+                </div>
+                
+                <a href="mindmap-defensive.html" class="nav-link">🛡️ Defensive</a>
+                <a href="mindmap-ai.html" class="nav-link">🤖 AI</a>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">Resources</button>
+                    <div class="nav-dropdown-content">
+                        <a href="paths.html">📋 Learning Paths</a>
+                        <a href="modules.html">📦 HTB Modules</a>
+                        <a href="oscp-machines.html">🎓 OSCP Machines</a>
+                        <a href="ctis.html">📚 CTIS Curriculum</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="hero-badge">
+            🎓 Bilkent University - CTIS Department
+        </span>
+        <h1>CTIS Security Roadmap</h1>
+        <p class="hero-subtitle">Cybersecurity Learning Platform for CTIS Students</p>
+        <p>An interactive learning platform that maps the CTIS curriculum to HTB Academy, TryHackMe, and certification paths. Built specifically for CTIS students to bridge academic knowledge with hands-on security skills.</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">120+</div>
+                <div class="stat-label">HTB Modules</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">80+</div>
+                <div class="stat-label">THM Rooms</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">17</div>
+                <div class="stat-label">CTIS Courses</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">9</div>
+                <div class="stat-label">Mind Maps</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="about">
+        <div class="about-card">
+            <div class="about-title">
+                📖 What is This Platform?
+            </div>
+            <p class="about-text">
+                This platform is a cybersecurity learning roadmap designed for <strong>Bilkent University CTIS (Computer Technology and Information Systems)</strong> department students. 
+                CTIS curriculum courses are mapped to hands-on platforms like <strong>HTB Academy</strong> and <strong>TryHackMe</strong>. 
+                This allows you to reinforce your theoretical knowledge in practical lab environments.
+            </p>
+            <div class="about-features">
+                <div class="about-feature">
+                    <span>🗺️</span>
+                    <span>Interactive Mind Maps</span>
+                </div>
+                <div class="about-feature">
+                    <span>🔗</span>
+                    <span>Direct Module Links</span>
+                </div>
+                <div class="about-feature">
+                    <span>📚</span>
+                    <span>CTIS Course Mapping</span>
+                </div>
+                <div class="about-feature">
+                    <span>🏆</span>
+                    <span>Certification Roadmaps</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Mind Maps Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🗺️</div>
+                <h2 class="section-title">Interactive Mind Maps</h2>
+                <span class="section-count">9 Maps</span>
+            </div>
+            <div class="mindmap-grid">
+                <a href="mindmap-circular.html" class="mindmap-card" style="--card-color: #00d4aa; background: linear-gradient(135deg, rgba(0,212,170,0.1), rgba(52,152,219,0.05)); border-color: rgba(0,212,170,0.3);">
+                    <div class="mindmap-icon">🎯</div>
+                    <h3 class="mindmap-title">Overview (Circular View)</h3>
+                    <p class="mindmap-desc">See all domains in one interactive map</p>
+                    <div class="mindmap-meta">
+                        <span style="color: #00d4aa;">● All Domains</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-web.html" class="mindmap-card web">
+                    <div class="mindmap-icon">🌐</div>
+                    <h3 class="mindmap-title">Web Application Pentesting</h3>
+                    <p class="mindmap-desc">SQL Injection, XSS, CSRF, SSRF, API Security, Authentication Bypass</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 25 HTB</span>
+                        <span class="thm">● 15 THM</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-network.html" class="mindmap-card network">
+                    <div class="mindmap-icon">🔌</div>
+                    <h3 class="mindmap-title">Network & Infrastructure</h3>
+                    <p class="mindmap-desc">Nmap, Enumeration, Privilege Escalation, Pivoting</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 18 HTB</span>
+                        <span class="thm">● 12 THM</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-ad.html" class="mindmap-card ad">
+                    <div class="mindmap-icon">🏢</div>
+                    <h3 class="mindmap-title">Active Directory</h3>
+                    <p class="mindmap-desc">AD Enumeration, Kerberos Attacks, ADCS, BloodHound</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 16 HTB</span>
+                        <span class="thm">● 8 THM</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-redteam.html" class="mindmap-card redteam">
+                    <div class="mindmap-icon">🎯</div>
+                    <h3 class="mindmap-title">Red Team Operations</h3>
+                    <p class="mindmap-desc">OSINT, Phishing, Malware Dev, AV/EDR Evasion, C2</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 12 HTB</span>
+                        <span class="thm">● 10 THM</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-defensive.html" class="mindmap-card defensive">
+                    <div class="mindmap-icon">🛡️</div>
+                    <h3 class="mindmap-title">Defensive Security / SOC</h3>
+                    <p class="mindmap-desc">SIEM, Log Analysis, Forensics, Malware Analysis</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 16 HTB</span>
+                        <span class="thm">● 12 THM</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-ai.html" class="mindmap-card ai">
+                    <div class="mindmap-icon">🤖</div>
+                    <h3 class="mindmap-title">AI Security</h3>
+                    <p class="mindmap-desc">LLM Security, Prompt Injection, Adversarial ML</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 12 HTB</span>
+                        <span class="thm">● 6 Resources</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-wifi.html" class="mindmap-card wifi">
+                    <div class="mindmap-icon">📡</div>
+                    <h3 class="mindmap-title">Wi-Fi Security</h3>
+                    <p class="mindmap-desc">WEP/WPA/WPA3 Attacks, Evil Twin, Cracking</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 10 HTB</span>
+                        <span class="thm">● 2 THM</span>
+                    </div>
+                </a>
+
+                <a href="mindmap-mobile.html" class="mindmap-card mobile">
+                    <div class="mindmap-icon">📱</div>
+                    <h3 class="mindmap-title">Mobile Security</h3>
+                    <p class="mindmap-desc">Android Pentesting, Static/Dynamic Analysis</p>
+                    <div class="mindmap-meta">
+                        <span class="htb">● 8 HTB</span>
+                        <span class="thm">● 4 THM</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- CTIS Courses Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <h2 class="section-title">CTIS Curriculum Mapping</h2>
+                <span class="section-count">17 Courses</span>
+            </div>
+            
+            <div class="ctis-highlight">
+                <div class="ctis-highlight-title">💡 How to Use</div>
+                <div class="ctis-highlight-text">Each CTIS course is mapped to recommended HTB Academy and TryHackMe modules. Practice what you learn in class through hands-on labs. Visit <a href="ctis.html" style="color: var(--accent);">CTIS Curriculum</a> for the complete mapping.</div>
+            </div>
+
+            <div class="ctis-grid">
+                <div class="ctis-card">
+                    <span class="ctis-code">CTIS 151</span>
+                    <div class="ctis-name">Introduction to Programming</div>
+                    <div class="ctis-desc">Python, Bash Scripting</div>
+                    <div class="ctis-links">
+                        <a href="https://academy.hackthebox.com/course/preview/introduction-to-python-3" target="_blank" class="ctis-link htb">Intro to Python 3</a>
+                        <a href="https://academy.hackthebox.com/course/preview/introduction-to-bash-scripting" target="_blank" class="ctis-link htb">Bash Scripting</a>
+                    </div>
+                </div>
+                <div class="ctis-card">
+                    <span class="ctis-code">CTIS 255</span>
+                    <div class="ctis-name">Frontend Web Technologies</div>
+                    <div class="ctis-desc">HTML, CSS, JavaScript, DOM</div>
+                    <div class="ctis-links">
+                        <a href="https://academy.hackthebox.com/course/preview/introduction-to-web-applications" target="_blank" class="ctis-link htb">Web Applications</a>
+                        <a href="https://academy.hackthebox.com/course/preview/cross-site-scripting-xss" target="_blank" class="ctis-link htb">XSS</a>
+                    </div>
+                </div>
+                <div class="ctis-card">
+                    <span class="ctis-code">CTIS 259</span>
+                    <div class="ctis-name">Database Management</div>
+                    <div class="ctis-desc">SQL, Oracle, PL/SQL</div>
+                    <div class="ctis-links">
+                        <a href="https://academy.hackthebox.com/course/preview/sql-injection-fundamentals" target="_blank" class="ctis-link htb">SQL Injection</a>
+                        <a href="https://academy.hackthebox.com/course/preview/sqlmap-essentials" target="_blank" class="ctis-link htb">SQLMap</a>
+                    </div>
+                </div>
+                <div class="ctis-card">
+                    <span class="ctis-code">CTIS 261</span>
+                    <div class="ctis-name">Computer Networks</div>
+                    <div class="ctis-desc">OSI, TCP/IP, Routing</div>
+                    <div class="ctis-links">
+                        <a href="https://academy.hackthebox.com/course/preview/introduction-to-networking" target="_blank" class="ctis-link htb">Networking</a>
+                        <a href="https://academy.hackthebox.com/course/preview/network-enumeration-with-nmap" target="_blank" class="ctis-link htb">Nmap</a>
+                    </div>
+                </div>
+                <div class="ctis-card">
+                    <span class="ctis-code">CTIS 486</span>
+                    <div class="ctis-name">Linux System Administration</div>
+                    <div class="ctis-desc">Linux, Shell, Security</div>
+                    <div class="ctis-links">
+                        <a href="https://academy.hackthebox.com/course/preview/linux-fundamentals" target="_blank" class="ctis-link htb">Linux Fundamentals</a>
+                        <a href="https://academy.hackthebox.com/course/preview/linux-privilege-escalation" target="_blank" class="ctis-link htb">Linux PrivEsc</a>
+                    </div>
+                </div>
+                <div class="ctis-card">
+                    <span class="ctis-code">CTIS 496</span>
+                    <div class="ctis-name">Computer and Network Security</div>
+                    <div class="ctis-desc">Security Fundamentals, Crypto</div>
+                    <div class="ctis-links">
+                        <a href="https://academy.hackthebox.com/course/preview/getting-started" target="_blank" class="ctis-link htb">Getting Started</a>
+                        <a href="https://academy.hackthebox.com/course/preview/security-monitoring--siem-fundamentals" target="_blank" class="ctis-link htb">SIEM</a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 24px;">
+                <a href="ctis.html" style="display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, #e91e63, #c2185b); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: transform 0.2s;">View All CTIS Courses →</a>
+            </div>
+        </section>
+
+        <!-- Platforms Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <h2 class="section-title">Learning Platforms</h2>
+            </div>
+            <div class="platforms">
+                <a href="https://academy.hackthebox.com" target="_blank" class="platform-card">
+                    <div class="platform-icon" style="color: #9fef00;">🟢</div>
+                    <div class="platform-name">HTB Academy</div>
+                    <div class="platform-type">120+ Modules</div>
+                </a>
+                <a href="https://tryhackme.com" target="_blank" class="platform-card">
+                    <div class="platform-icon" style="color: #1bd96a;">🟢</div>
+                    <div class="platform-name">TryHackMe</div>
+                    <div class="platform-type">80+ Rooms</div>
+                </a>
+                <a href="https://hackthebox.com" target="_blank" class="platform-card">
+                    <div class="platform-icon">🎯</div>
+                    <div class="platform-name">HackTheBox</div>
+                    <div class="platform-type">Labs & Machines</div>
+                </a>
+                <a href="https://portswigger.net/web-security" target="_blank" class="platform-card">
+                    <div class="platform-icon">🕸️</div>
+                    <div class="platform-name">PortSwigger</div>
+                    <div class="platform-type">Web Security Academy</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🔗</div>
+                <h2 class="section-title">Quick Access</h2>
+            </div>
+            <div class="quick-links">
+                <a href="paths.html" class="quick-link">
+                    <div class="quick-link-icon">📋</div>
+                    <div class="quick-link-text">
+                        <h4>Learning Paths</h4>
+                        <p>HTB & THM structured learning paths</p>
+                    </div>
+                </a>
+                <a href="modules.html" class="quick-link">
+                    <div class="quick-link-icon">📦</div>
+                    <div class="quick-link-text">
+                        <h4>All Modules</h4>
+                        <p>Filterable module listing</p>
+                    </div>
+                </a>
+                <a href="oscp-machines.html" class="quick-link">
+                    <div class="quick-link-icon">🎯</div>
+                    <div class="quick-link-text">
+                        <h4>OSCP Practice List</h4>
+                        <p>TJ Null's 2025 machine list</p>
+                    </div>
+                </a>
+                <a href="ctis.html" class="quick-link">
+                    <div class="quick-link-icon">🎓</div>
+                    <div class="quick-link-text">
+                        <h4>CTIS Curriculum</h4>
+                        <p>Full course mapping</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-brand">🎓 CTIS Security Roadmap</div>
+        <p class="footer-text">Bilkent University - Computer Technology and Information Systems Department</p>
+        <p class="footer-text">2025-2026 Academic Year</p>
+        <div class="footer-links">
+            <a href="https://catalog.bilkent.edu.tr/dep/dc18.html" target="_blank" class="footer-link">📖 CTIS Catalog</a>
+            <a href="https://w3.bilkent.edu.tr/bilkent/computer-technology-and-information-systems/" target="_blank" class="footer-link">🏫 CTIS Department</a>
+            <a href="https://academy.hackthebox.com" target="_blank" class="footer-link">🟢 HTB Academy</a>
+            <a href="https://tryhackme.com" target="_blank" class="footer-link">🟢 TryHackMe</a>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('open');
+            document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+        });
+        
+        // Mobile dropdown toggle
+        document.querySelectorAll('.nav-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.querySelectorAll('.nav-dropdown').forEach(d => {
+                        if (d !== this.parentElement) d.classList.remove('open');
+                    });
+                    this.parentElement.classList.toggle('open');
+                }
+            });
+        });
+        
+        // Close menu when clicking a link (mobile)
+        document.querySelectorAll('.nav-dropdown-content a, .nav-links > .nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('open');
+                    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && navMenu.classList.contains('open')) {
+                if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    navMenu.classList.remove('open');
+                    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                }
+            }
+        });
+    </script>
+</body>
+</html>
