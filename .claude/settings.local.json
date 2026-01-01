@@ -10,7 +10,11 @@
       "Bash(git remote set-url:*)",
       "Bash(git push:*)",
       "Bash(ls:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(for:*)",
+      "Bash(do:*)",
+      "Bash(done)",
+      "Bash(node:*)"
     ]
   }
 }

@@ -146,264 +146,80 @@
         .legend-toggle:hover { background: #ff4757; color: #fff; }
         .legend-toggle.active { background: #ff4757; color: #fff; }
 
-        /* Responsive */
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .nav { padding: 0 16px; }
-            .nav-container { height: 60px; }
-            .nav-links { 
-                display: none; 
-                position: fixed; 
-                top: 60px; 
-                left: 0; 
-                right: 0; 
+            .mobile-toggle { display: flex; }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
                 bottom: 0;
-                background: rgba(10,10,15,0.98); 
-                flex-direction: column; 
-                padding: 20px; 
-                overflow-y: auto; 
-                z-index: 1001;
+                background: #0a0a0f;
+                flex-direction: column;
+                padding: 0;
+                overflow-y: auto;
+                z-index: 999;
             }
-            .nav-links.open { display: flex; }
-            .mobile-toggle { display: block; }
-            .nav-link { padding: 14px; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+            .nav-links.mobile-open {
+                display: flex;
+                animation: slideDown 0.25s ease-out;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .nav-link {
+                display: block;
+                width: 100%;
+                padding: 18px 24px;
+                font-size: 16px;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+
             .nav-dropdown { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.08); }
-            .nav-dropdown-btn { width: 100%; justify-content: space-between; padding: 14px; font-size: 1rem; }
-            .nav-dropdown-content { 
-                position: static; 
-                box-shadow: none; 
-                border: none; 
-                background: rgba(255,255,255,0.02); 
-                margin: 0;
-                padding: 0 0 10px 20px;
-                display: none;
+            .nav-dropdown-btn {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                padding: 18px 24px;
+                font-size: 16px;
             }
+            .nav-dropdown-btn::after { transition: transform 0.2s; }
+            .nav-dropdown.dropdown-open .nav-dropdown-btn::after { transform: rotate(180deg); }
+
+            .nav-dropdown-content {
+                display: none;
+                position: static;
+                background: rgba(255,255,255,0.02);
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+            .nav-dropdown.dropdown-open .nav-dropdown-content { display: block; }
+
+            .nav-dropdown-content a {
+                display: block;
+                padding: 14px 24px 14px 48px;
+                font-size: 15px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            /* Disable hover dropdown on mobile */
             .nav-dropdown:hover .nav-dropdown-content { display: none; }
-            .nav-dropdown.open .nav-dropdown-content { display: block; }
-            .nav-dropdown-content a { padding: 12px 14px; font-size: 0.95rem; }
+            .nav-dropdown.dropdown-open:hover .nav-dropdown-content { display: block; }
+
             #jsmind_container { top: 60px; }
-            
-            /* Mobile Legend - Collapsible */
-            .legend { 
-                display: none;
-                bottom: 70px;
-                left: 15px;
-                max-width: calc(100vw - 30px);
-                animation: slideUp 0.3s ease;
-            }
-            .legend.show { display: block; }
+            .legend { display: none; }
             .legend-toggle { display: flex; }
-            
-            /* Mobile Controls */
-            .controls {
-                bottom: 15px;
-                right: 15px;
-                gap: 4px;
-            }
-            .ctrl-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-            
-            /* Mobile Hint - Hide on mobile */
-            .hint { 
-                display: none;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-brand { font-size: 0.85rem; }
-            .legend { font-size: 0.65rem; padding: 10px; }
-            .legend-title { font-size: 0.7rem; }
-            .ctrl-btn { width: 36px; height: 36px; font-size: 16px; }
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-    
-/* ========== MOBILE RESPONSIVE - ACTIVE ========== */
-@media screen and (max-width: 768px) {
-    /* Show hamburger */
-    .mobile-toggle {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 44px !important;
-        height: 44px !important;
-        background: none !important;
-        border: none !important;
-        color: #fff !important;
-        font-size: 28px !important;
-        cursor: pointer !important;
-        z-index: 99999 !important;
-        -webkit-tap-highlight-color: transparent !important;
-    }
-    
-    /* Full screen menu */
-    .nav-links {
-        position: fixed !important;
-        top: 60px !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: 100% !important;
-        height: calc(100vh - 60px) !important;
-        background: #0a0a0f !important;
-        display: none !important;
-        flex-direction: column !important;
-        overflow-y: auto !important;
-        z-index: 99998 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .nav-links.mobile-open {
-        display: flex !important;
-    }
-    
-    /* Menu items */
-    .nav-links > .nav-link {
-        display: block !important;
-        width: 100% !important;
-        padding: 18px 24px !important;
-        font-size: 18px !important;
-        color: #fff !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Dropdown container */
-    .nav-dropdown {
-        width: 100% !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-    }
-    
-    /* Dropdown button */
-    .nav-dropdown-btn {
-        display: flex !important;
-        width: 100% !important;
-        padding: 18px 24px !important;
-        font-size: 18px !important;
-        color: #fff !important;
-        background: transparent !important;
-        border: none !important;
-        cursor: pointer !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        box-sizing: border-box !important;
-    }
-    
-    .nav-dropdown-btn::after {
-        content: "▼" !important;
-        font-size: 12px !important;
-        transition: transform 0.2s !important;
-    }
-    
-    .nav-dropdown.dropdown-open > .nav-dropdown-btn::after {
-        transform: rotate(180deg) !important;
-    }
-    
-    /* Dropdown content - hidden */
-    .nav-dropdown-content {
-        display: none !important;
-        position: static !important;
-        width: 100% !important;
-        background: rgba(255,255,255,0.02) !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-    }
-    
-    /* Dropdown content - visible */
-    .nav-dropdown.dropdown-open > .nav-dropdown-content {
-        display: block !important;
-    }
-    
-    /* Disable hover */
-    .nav-dropdown:hover > .nav-dropdown-content {
-        display: none !important;
-    }
-    .nav-dropdown.dropdown-open:hover > .nav-dropdown-content {
-        display: block !important;
-    }
-    
-    /* Dropdown links */
-    .nav-dropdown-content a {
-        display: block !important;
-        padding: 16px 24px 16px 48px !important;
-        font-size: 16px !important;
-        color: rgba(255,255,255,0.8) !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-    }
-    
-    .nav-dropdown-content .dropdown-header {
-        padding: 12px 24px 8px 48px !important;
-        font-size: 11px !important;
-        color: #00d4aa !important;
-    }
-}
-/* ========== END MOBILE ========== */
-
-/* Circular Panels Mobile */
-@media screen and (max-width: 768px) {
-    .category-panel, .stats-panel, .filter-panel { display: none !important; }
-    .category-panel.panel-visible {
-        display: block !important;
-        position: fixed !important;
-        top: 70px !important;
-        left: 10px !important;
-        right: 10px !important;
-        max-height: 50vh !important;
-        overflow-y: auto !important;
-        z-index: 9998 !important;
-    }
-    .filter-panel.panel-visible {
-        display: block !important;
-        position: fixed !important;
-        top: 70px !important;
-        right: 10px !important;
-        z-index: 9998 !important;
-    }
-    .stats-panel.panel-visible {
-        display: block !important;
-        position: fixed !important;
-        bottom: 80px !important;
-        left: 10px !important;
-        z-index: 9998 !important;
-    }
-}
-.mobile-panel-btns { display: none; }
-@media screen and (max-width: 768px) {
-    .mobile-panel-btns {
-        display: flex !important;
-        position: fixed !important;
-        bottom: 15px !important;
-        left: 15px !important;
-        gap: 10px !important;
-        z-index: 9999 !important;
-    }
-    .panel-btn {
-        width: 50px !important;
-        height: 50px !important;
-        background: rgba(10,10,15,0.95) !important;
-        border: 2px solid rgba(0,212,170,0.5) !important;
-        border-radius: 12px !important;
-        color: #00d4aa !important;
-        font-size: 20px !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    .panel-btn.active { background: #00d4aa !important; color: #000 !important; }
-}
-
-</style>
+            .legend.show { display: block; }
+            .hint { display: none; }
+        }</style>
 </head>
 <body>
     <button class="legend-toggle">📋</button>
@@ -413,13 +229,13 @@
             <a href="index.html" class="nav-brand">
                 <span>🎯</span> Security Overview
             </a>
-            <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('mobile-open'); document.body.style.overflow = document.getElementById('navMenu').classList.contains('mobile-open') ? 'hidden' : '';">☰</button>
+            <button class="mobile-toggle">☰</button>
             <div class="nav-links" id="navMenu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="mindmap-circular.html" class="nav-link">🎯 Overview</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn" onclick="if(window.innerWidth<=768){event.stopPropagation();this.parentElement.classList.toggle('dropdown-open');}">Offensive</button>
+                    <button class="nav-dropdown-btn">Offensive</button>
                     <div class="nav-dropdown-content">
                         <span class="dropdown-header">Mind Maps</span>
                         <a href="mindmap-web.html">🌐 Web Pentesting</a>
@@ -435,7 +251,7 @@
                 <a href="mindmap-ai.html" class="nav-link">🤖 AI</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn" onclick="if(window.innerWidth<=768){event.stopPropagation();this.parentElement.classList.toggle('dropdown-open');}">Resources</button>
+                    <button class="nav-dropdown-btn">Resources</button>
                     <div class="nav-dropdown-content">
                         <a href="paths.html">📋 Learning Paths</a>
                         <a href="modules.html">📦 HTB Modules</a>
@@ -792,7 +608,16 @@
                     }
                 }
             }
-        });
+        
+        // Legend toggle (mobile)
+        const legendToggle = document.getElementById('legendToggle');
+        const legend = document.querySelector('.legend');
+        if (legendToggle && legend) {
+            legendToggle.addEventListener('click', function() {
+                legend.classList.toggle('show');
+                legendToggle.classList.toggle('active');
+            });
+        }});
     </script>
 
 <script>
