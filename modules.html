@@ -279,6 +279,18 @@
     }
     /* ===== END MOBILE MENU ULTRA FIX ===== */
 
+    /* iOS Touch Delay Fix */
+    .mobile-toggle,
+    .nav-dropdown-btn,
+    .nav-link,
+    .nav-dropdown-content a {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
 </style>
 </head>
 <body>
@@ -287,13 +299,13 @@
             <a href="index.html" class="nav-brand">
                 <span>📦</span> HTB Modules
             </a>
-            <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+            <button class="mobile-toggle" ontouchstart="toggleMobileMenu(); return false;" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
             <div class="nav-links" id="navMenu">
                 <a href="index.html" class="nav-link" onclick="closeMobileMenu()">Home</a>
                 <a href="mindmap-circular.html" class="nav-link" onclick="closeMobileMenu()">🎯 Overview</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">Offensive</button>
+                    <button class="nav-dropdown-btn" ontouchstart="toggleDropdown(this); return false;" onclick="toggleDropdown(this)">Offensive</button>
                     <div class="nav-dropdown-content">
                         <span class="dropdown-header">Mind Maps</span>
                         <a onclick="closeMobileMenu()" href="mindmap-web.html">🌐 Web Pentesting</a>
@@ -309,7 +321,7 @@
                 <a href="mindmap-ai.html" class="nav-link" onclick="closeMobileMenu()">🤖 AI</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">Resources</button>
+                    <button class="nav-dropdown-btn" ontouchstart="toggleDropdown(this); return false;" onclick="toggleDropdown(this)">Resources</button>
                     <div class="nav-dropdown-content">
                         <a onclick="closeMobileMenu()" href="paths.html">📋 Learning Paths</a>
                         <a href="modules.html">📦 HTB Modules</a>
@@ -543,17 +555,20 @@
 
 
 <script>
-// Mobile Menu - Ultra Simple
+// Mobile Menu - Ultra Simple v2
 function toggleMobileMenu() {
     var menu = document.querySelector('.nav-links') || document.getElementById('navMenu');
+    var jsmind = document.getElementById('jsmind_container');
     if (!menu) return;
     
     if (menu.classList.contains('open')) {
         menu.classList.remove('open');
         document.body.style.overflow = '';
+        if (jsmind) jsmind.style.pointerEvents = '';
     } else {
         menu.classList.add('open');
         document.body.style.overflow = 'hidden';
+        if (jsmind) jsmind.style.pointerEvents = 'none';
     }
     console.log('Menu:', menu.classList.contains('open'));
 }
@@ -579,13 +594,15 @@ function toggleDropdown(btn) {
 
 function closeMobileMenu() {
     var menu = document.querySelector('.nav-links') || document.getElementById('navMenu');
+    var jsmind = document.getElementById('jsmind_container');
     if (menu && window.innerWidth <= 768) {
         menu.classList.remove('open');
         document.body.style.overflow = '';
+        if (jsmind) jsmind.style.pointerEvents = '';
     }
 }
 
-console.log('Mobile menu ready');
+console.log('Mobile menu ready v2');
 </script>
 
 </body>
