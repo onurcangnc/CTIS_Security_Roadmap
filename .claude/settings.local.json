@@ -14,7 +14,9 @@
       "Bash(for:*)",
       "Bash(do:*)",
       "Bash(done)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git checkout:*)",
+      "Bash(git reset:*)"
     ]
   }
 }
