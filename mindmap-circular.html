@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>CTIS Security Tree - Circular View</title>
     <script src="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/es6/jsmind.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/style/jsmind.css">
@@ -224,22 +224,18 @@
         }
 
     
-        /* Mobile Menu Overlay */
+        /* ===== MOBILE FIXES ===== */
+        
+        /* Mobile Toggle Button */
         @media (max-width: 768px) {
-            .nav { padding: 0 16px; }
-            .nav-container { height: 60px; }
-            
-            .mobile-toggle { 
-                display: block !important; 
-                z-index: 10002;
-                padding: 10px;
-                font-size: 1.5rem;
-                background: none;
-                border: none;
-                color: #fff;
-                cursor: pointer;
+            .mobile-toggle {
+                display: block !important;
+                z-index: 10002 !important;
+                padding: 12px !important;
+                font-size: 1.5rem !important;
             }
             
+            /* Full Screen Mobile Menu */
             .nav-links {
                 display: none !important;
                 position: fixed !important;
@@ -248,30 +244,16 @@
                 right: 0 !important;
                 bottom: 0 !important;
                 width: 100% !important;
-                height: calc(100% - 60px) !important;
-                min-height: calc(100vh - 60px) !important;
-                max-height: none !important;
+                height: calc(100vh - 60px) !important;
                 background: #0a0a0f !important;
                 flex-direction: column !important;
-                align-items: stretch !important;
-                justify-content: flex-start !important;
                 padding: 0 !important;
-                margin: 0 !important;
                 overflow-y: auto !important;
-                overflow-x: hidden !important;
                 z-index: 10001 !important;
-                -webkit-overflow-scrolling: touch;
             }
             
             .nav-links.open {
                 display: flex !important;
-            }
-            
-            .nav-links > .nav-link,
-            .nav-links > .nav-dropdown {
-                width: 100% !important;
-                margin: 0 !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
             
             .nav-links > .nav-link {
@@ -279,11 +261,13 @@
                 padding: 18px 20px !important;
                 font-size: 1.1rem !important;
                 color: #fff !important;
-                text-decoration: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+                width: 100% !important;
             }
             
             .nav-dropdown {
                 width: 100% !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
             }
             
             .nav-dropdown-btn {
@@ -292,34 +276,20 @@
                 padding: 18px 20px !important;
                 font-size: 1.1rem !important;
                 color: #fff !important;
-                background: none !important;
+                background: transparent !important;
                 border: none !important;
-                justify-content: space-between;
-                align-items: center;
-                cursor: pointer;
-                font-family: inherit;
-            }
-            
-            .nav-dropdown-btn::after {
-                content: '▼';
-                font-size: 0.7rem;
-                transition: transform 0.3s;
-            }
-            
-            .nav-dropdown.open .nav-dropdown-btn::after {
-                transform: rotate(180deg);
+                justify-content: space-between !important;
+                cursor: pointer !important;
             }
             
             .nav-dropdown-content {
                 display: none !important;
                 position: static !important;
-                width: 100% !important;
-                background: rgba(255,255,255,0.05) !important;
+                background: rgba(255,255,255,0.03) !important;
                 border: none !important;
-                border-radius: 0 !important;
                 box-shadow: none !important;
                 padding: 0 !important;
-                margin: 0 !important;
+                width: 100% !important;
             }
             
             .nav-dropdown.open .nav-dropdown-content {
@@ -330,195 +300,110 @@
                 display: none !important;
             }
             
-            .nav-dropdown.open:hover .nav-dropdown-content {
-                display: block !important;
-            }
-            
             .nav-dropdown-content a {
-                display: block !important;
                 padding: 15px 20px 15px 40px !important;
                 font-size: 1rem !important;
                 color: rgba(255,255,255,0.8) !important;
-                border-bottom: 1px solid rgba(255,255,255,0.05);
-            }
-            
-            .nav-dropdown-content .dropdown-header {
-                display: block;
-                padding: 12px 20px 8px 40px !important;
-                font-size: 0.7rem;
-                color: #00d4aa;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-brand { font-size: 0.85rem; }
-            .nav-links > .nav-link,
-            .nav-dropdown-btn {
-                padding: 16px 16px !important;
-                font-size: 1rem !important;
-            }
-            .nav-dropdown-content a {
-                padding: 14px 16px 14px 32px !important;
-            }
-        }
-
-    
-        /* DROPDOWN FIX - Must be at the end to override */
-        @media (max-width: 768px) {
-            .nav-dropdown-content {
-                display: none !important;
-                position: static !important;
-                width: 100% !important;
-                background: rgba(255,255,255,0.03) !important;
-                border: none !important;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
-            
-            .nav-dropdown.open > .nav-dropdown-content {
-                display: block !important;
-                max-height: 500px !important;
-                overflow: visible !important;
-            }
-            
-            .nav-dropdown-btn {
-                width: 100% !important;
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                padding: 18px 20px !important;
-                font-size: 1.1rem !important;
-                color: #fff !important;
-                background: transparent !important;
-                border: none !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-                cursor: pointer !important;
-            }
-            
-            .nav-dropdown-btn::after {
-                content: '▼' !important;
-                font-size: 0.8rem !important;
-                transition: transform 0.3s ease !important;
-                margin-left: auto !important;
-            }
-            
-            .nav-dropdown.open > .nav-dropdown-btn::after {
-                transform: rotate(180deg) !important;
-            }
-            
-            .nav-dropdown-content a {
-                display: block !important;
-                padding: 14px 20px 14px 35px !important;
-                font-size: 1rem !important;
-                color: rgba(255,255,255,0.7) !important;
-                text-decoration: none !important;
                 border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-                background: transparent !important;
             }
-            
-            .nav-dropdown-content a:hover,
-            .nav-dropdown-content a:active {
-                background: rgba(255,255,255,0.05) !important;
-                color: #fff !important;
-            }
-            
-            .nav-dropdown-content .dropdown-header {
-                display: block !important;
-                padding: 12px 20px 8px 35px !important;
-                font-size: 0.7rem !important;
-                color: #00d4aa !important;
-                text-transform: uppercase !important;
-                letter-spacing: 1px !important;
-                background: transparent !important;
-            }
-        }
 
-    
-        /* Mobile Panel System for Circular */
-        .panel-toggles {
-            display: none;
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            gap: 8px;
-            z-index: 9999;
-        }
-        
-        .panel-toggle {
-            width: 48px;
-            height: 48px;
-            background: rgba(10,10,15,0.95);
-            border: 1px solid rgba(0,212,170,0.4);
-            border-radius: 12px;
-            color: #00d4aa;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .panel-toggle:hover, .panel-toggle.active {
-            background: #00d4aa;
-            color: #000;
-        }
-        
-        @media (max-width: 768px) {
-            .panel-toggles {
-                display: flex !important;
-            }
-            
+            /* Circular Panels - HIDE ALL by default on mobile */
             .category-panel,
             .stats-panel,
             .filter-panel {
                 display: none !important;
                 position: fixed !important;
                 z-index: 9998 !important;
-                animation: slideUp 0.3s ease;
+                max-width: 280px !important;
+                background: rgba(10,10,15,0.98) !important;
+                border: 1px solid rgba(0,212,170,0.3) !important;
+                border-radius: 12px !important;
+                padding: 15px !important;
+                animation: panelSlide 0.3s ease !important;
             }
             
-            .category-panel {
+            .category-panel.show {
+                display: block !important;
                 top: 70px !important;
-                left: 15px !important;
-                right: 15px !important;
-                bottom: auto !important;
+                left: 10px !important;
+                right: 10px !important;
                 max-width: none !important;
-                max-height: 50vh !important;
+                max-height: 45vh !important;
                 overflow-y: auto !important;
             }
             
-            .stats-panel {
-                bottom: 75px !important;
-                left: 15px !important;
-                right: auto !important;
-            }
-            
-            .filter-panel {
-                top: 70px !important;
-                right: 15px !important;
-                left: auto !important;
-            }
-            
-            .category-panel.show,
-            .stats-panel.show,
             .filter-panel.show {
                 display: block !important;
+                top: 70px !important;
+                right: 10px !important;
+                left: auto !important;
+                max-width: 200px !important;
             }
+            
+            .stats-panel.show {
+                display: block !important;
+                bottom: 80px !important;
+                left: 10px !important;
+                right: auto !important;
+                max-width: 200px !important;
+            }
+            
+            /* Panel Toggle Buttons */
+            .panel-toggles {
+                display: flex !important;
+                position: fixed !important;
+                bottom: 15px !important;
+                left: 15px !important;
+                gap: 10px !important;
+                z-index: 9999 !important;
+            }
+            
+            .panel-toggle {
+                width: 50px !important;
+                height: 50px !important;
+                background: rgba(10,10,15,0.95) !important;
+                border: 2px solid rgba(0,212,170,0.5) !important;
+                border-radius: 14px !important;
+                color: #00d4aa !important;
+                font-size: 20px !important;
+                cursor: pointer !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: all 0.2s ease !important;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+            }
+            
+            .panel-toggle:active {
+                transform: scale(0.95) !important;
+            }
+            
+            .panel-toggle.active {
+                background: #00d4aa !important;
+                color: #000 !important;
+                border-color: #00d4aa !important;
+            }
+            
+            /* Zoom controls position */
+            .controls {
+                bottom: 15px !important;
+                right: 15px !important;
+            }
+        }
+        
+        @keyframes panelSlide {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .panel-toggles {
+            display: none;
         }
 
     </style>
 </head>
 <body>
-    <button class="legend-toggle" onclick="toggleLegend()" title="Toggle Legend">📋</button>
+    <button class="legend-toggle" id="legendToggle">📋</button>
 
     <nav class="nav">
         <div class="nav-container">
@@ -908,268 +793,95 @@
     </script>
 
     <script>
+    // Mobile Menu & Panel System
     (function() {
-        'use strict';
+        // Mobile Menu
+        var toggle = document.getElementById('mobileToggle');
+        var menu = document.getElementById('navMenu');
         
-        var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
-        var menu = document.getElementById('navMenu') || document.querySelector('.nav-links');
-        
-        if (!toggle || !menu) {
-            console.warn('Mobile menu elements not found');
-            return;
-        }
-        
-        // Remove old event listeners by cloning
-        var newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        toggle = newToggle;
-        
-        function closeMenu() {
-            menu.classList.remove('open');
-            document.body.style.overflow = '';
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-        }
-        
-        function openMenu() {
-            menu.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Toggle click
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (menu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-        
-        // Dropdown toggles
-        document.querySelectorAll('.nav-dropdown-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    var dropdown = this.parentElement;
-                    var isOpen = dropdown.classList.contains('open');
-                    
-                    // Close all dropdowns
-                    document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                        d.classList.remove('open');
-                    });
-                    
-                    // Open this one if it was closed
-                    if (!isOpen) {
-                        dropdown.classList.add('open');
-                    }
-                }
-            });
-        });
-        
-        // Close menu when clicking a link
-        menu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    closeMenu();
-                }
-            });
-        });
-        
-        // Close on resize to desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                closeMenu();
-            }
-        });
-        
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && menu.classList.contains('open')) {
-                closeMenu();
-            }
-        });
-    })();
-    </script>
-
-
-    <script>
-    (function() {
-        'use strict';
-        
-        var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
-        var menu = document.getElementById('navMenu') || document.querySelector('.nav-links');
-        
-        if (!toggle || !menu) {
-            console.warn('Mobile menu elements not found');
-            return;
-        }
-        
-        // Clone toggle to remove old listeners
-        var newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        toggle = newToggle;
-        
-        function closeAllDropdowns() {
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-        }
-        
-        function closeMenu() {
-            menu.classList.remove('open');
-            document.body.style.overflow = '';
-            closeAllDropdowns();
-        }
-        
-        function openMenu() {
-            menu.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Main toggle click
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (menu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-        
-        // Dropdown button clicks
-        var dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
-        dropdownBtns.forEach(function(btn) {
-            // Clone to remove old listeners
-            var newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-            
-            newBtn.addEventListener('click', function(e) {
-                // Only handle on mobile
-                if (window.innerWidth > 768) return;
-                
+        if (toggle && menu) {
+            toggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                var dropdown = this.closest('.nav-dropdown');
-                if (!dropdown) return;
-                
-                var wasOpen = dropdown.classList.contains('open');
-                
-                // Close all dropdowns first
-                closeAllDropdowns();
-                
-                // Toggle this dropdown
-                if (!wasOpen) {
-                    dropdown.classList.add('open');
+                menu.classList.toggle('open');
+                if (menu.classList.contains('open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
                 }
             });
-        });
-        
-        // Close menu when clicking a nav link (not dropdown btn)
-        menu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    // Small delay to allow navigation
-                    setTimeout(closeMenu, 100);
-                }
+            
+            // Dropdown toggle
+            document.querySelectorAll('.nav-dropdown-btn').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        var dd = this.parentElement;
+                        var wasOpen = dd.classList.contains('open');
+                        document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+                        if (!wasOpen) dd.classList.add('open');
+                    }
+                });
             });
-        });
+            
+            // Close menu on link click
+            menu.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        menu.classList.remove('open');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        }
         
-        // Close on resize to desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                closeMenu();
-            }
-        });
-        
-        // Close on escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeMenu();
-            }
-        });
-        
-        // Prevent body scroll when menu is open
-        menu.addEventListener('touchmove', function(e) {
-            e.stopPropagation();
-        }, { passive: true });
-        
-    })();
-    </script>
-
-
-    <script>
-    // Panel Toggles for Circular Mindmap
-    (function() {
+        // Panel Toggles
         var categoryPanel = document.querySelector('.category-panel');
         var statsPanel = document.querySelector('.stats-panel');
         var filterPanel = document.querySelector('.filter-panel');
         
-        // Create toggle buttons if they don't exist
-        var togglesContainer = document.querySelector('.panel-toggles');
-        if (!togglesContainer) {
-            togglesContainer = document.createElement('div');
-            togglesContainer.className = 'panel-toggles';
-            togglesContainer.innerHTML = '<button class="panel-toggle" data-panel="category" title="Domains">🎯</button>' +
-                '<button class="panel-toggle" data-panel="stats" title="Stats">📊</button>' +
-                '<button class="panel-toggle" data-panel="filter" title="Filter">🔍</button>';
-            document.body.appendChild(togglesContainer);
-        }
-        
-        var panels = {
-            category: categoryPanel,
-            stats: statsPanel,
-            filter: filterPanel
-        };
-        
-        function closeAllPanels() {
-            Object.values(panels).forEach(function(p) {
-                if (p) p.classList.remove('show');
-            });
-            document.querySelectorAll('.panel-toggle').forEach(function(t) {
-                t.classList.remove('active');
-            });
-        }
-        
-        togglesContainer.addEventListener('click', function(e) {
-            var btn = e.target.closest('.panel-toggle');
-            if (!btn) return;
+        // Create panel toggles
+        if (window.innerWidth <= 768 || true) {
+            var togglesDiv = document.createElement('div');
+            togglesDiv.className = 'panel-toggles';
+            togglesDiv.innerHTML = '<button class="panel-toggle" data-panel="category">🎯</button>' +
+                                   '<button class="panel-toggle" data-panel="stats">📊</button>' +
+                                   '<button class="panel-toggle" data-panel="filter">🔍</button>';
+            document.body.appendChild(togglesDiv);
             
-            e.preventDefault();
-            e.stopPropagation();
+            var panels = { category: categoryPanel, stats: statsPanel, filter: filterPanel };
             
-            var panelName = btn.dataset.panel;
-            var panel = panels[panelName];
-            
-            if (!panel) return;
-            
-            var wasOpen = panel.classList.contains('show');
-            closeAllPanels();
-            
-            if (!wasOpen) {
-                panel.classList.add('show');
-                btn.classList.add('active');
-            }
-        });
-        
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                var isPanel = e.target.closest('.category-panel, .stats-panel, .filter-panel');
-                var isToggle = e.target.closest('.panel-toggle');
-                if (!isPanel && !isToggle) {
-                    closeAllPanels();
+            togglesDiv.addEventListener('click', function(e) {
+                var btn = e.target.closest('.panel-toggle');
+                if (!btn) return;
+                
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var panelName = btn.dataset.panel;
+                var panel = panels[panelName];
+                var wasOpen = panel && panel.classList.contains('show');
+                
+                // Close all
+                Object.values(panels).forEach(function(p) { if(p) p.classList.remove('show'); });
+                document.querySelectorAll('.panel-toggle').forEach(function(b) { b.classList.remove('active'); });
+                
+                // Open if was closed
+                if (!wasOpen && panel) {
+                    panel.classList.add('show');
+                    btn.classList.add('active');
                 }
-            }
-        });
+            });
+            
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.panel-toggle, .category-panel, .stats-panel, .filter-panel')) {
+                    Object.values(panels).forEach(function(p) { if(p) p.classList.remove('show'); });
+                    document.querySelectorAll('.panel-toggle').forEach(function(b) { b.classList.remove('active'); });
+                }
+            });
+        }
     })();
     </script>
 

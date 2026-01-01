@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>All Modules - CTIS Security Roadmap</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -125,20 +125,13 @@
             .module-grid { grid-template-columns: 1fr; }
         }
     
-        /* Mobile Menu Overlay */
+        /* ===== MOBILE MENU FIX ===== */
         @media (max-width: 768px) {
-            .nav { padding: 0 16px; }
-            .nav-container { height: 60px; }
-            
-            .mobile-toggle { 
-                display: block !important; 
-                z-index: 10002;
-                padding: 10px;
-                font-size: 1.5rem;
-                background: none;
-                border: none;
-                color: #fff;
-                cursor: pointer;
+            .mobile-toggle {
+                display: block !important;
+                z-index: 10002 !important;
+                padding: 12px !important;
+                font-size: 1.5rem !important;
             }
             
             .nav-links {
@@ -149,30 +142,16 @@
                 right: 0 !important;
                 bottom: 0 !important;
                 width: 100% !important;
-                height: calc(100% - 60px) !important;
-                min-height: calc(100vh - 60px) !important;
-                max-height: none !important;
+                height: calc(100vh - 60px) !important;
                 background: #0a0a0f !important;
                 flex-direction: column !important;
-                align-items: stretch !important;
-                justify-content: flex-start !important;
                 padding: 0 !important;
-                margin: 0 !important;
                 overflow-y: auto !important;
-                overflow-x: hidden !important;
                 z-index: 10001 !important;
-                -webkit-overflow-scrolling: touch;
             }
             
             .nav-links.open {
                 display: flex !important;
-            }
-            
-            .nav-links > .nav-link,
-            .nav-links > .nav-dropdown {
-                width: 100% !important;
-                margin: 0 !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
             
             .nav-links > .nav-link {
@@ -180,11 +159,13 @@
                 padding: 18px 20px !important;
                 font-size: 1.1rem !important;
                 color: #fff !important;
-                text-decoration: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+                width: 100% !important;
             }
             
             .nav-dropdown {
                 width: 100% !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
             }
             
             .nav-dropdown-btn {
@@ -193,34 +174,20 @@
                 padding: 18px 20px !important;
                 font-size: 1.1rem !important;
                 color: #fff !important;
-                background: none !important;
+                background: transparent !important;
                 border: none !important;
-                justify-content: space-between;
-                align-items: center;
-                cursor: pointer;
-                font-family: inherit;
-            }
-            
-            .nav-dropdown-btn::after {
-                content: '▼';
-                font-size: 0.7rem;
-                transition: transform 0.3s;
-            }
-            
-            .nav-dropdown.open .nav-dropdown-btn::after {
-                transform: rotate(180deg);
+                justify-content: space-between !important;
+                cursor: pointer !important;
             }
             
             .nav-dropdown-content {
                 display: none !important;
                 position: static !important;
-                width: 100% !important;
-                background: rgba(255,255,255,0.05) !important;
+                background: rgba(255,255,255,0.03) !important;
                 border: none !important;
-                border-radius: 0 !important;
                 box-shadow: none !important;
                 padding: 0 !important;
-                margin: 0 !important;
+                width: 100% !important;
             }
             
             .nav-dropdown.open .nav-dropdown-content {
@@ -231,113 +198,11 @@
                 display: none !important;
             }
             
-            .nav-dropdown.open:hover .nav-dropdown-content {
-                display: block !important;
-            }
-            
             .nav-dropdown-content a {
-                display: block !important;
                 padding: 15px 20px 15px 40px !important;
                 font-size: 1rem !important;
                 color: rgba(255,255,255,0.8) !important;
-                border-bottom: 1px solid rgba(255,255,255,0.05);
-            }
-            
-            .nav-dropdown-content .dropdown-header {
-                display: block;
-                padding: 12px 20px 8px 40px !important;
-                font-size: 0.7rem;
-                color: #00d4aa;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-brand { font-size: 0.85rem; }
-            .nav-links > .nav-link,
-            .nav-dropdown-btn {
-                padding: 16px 16px !important;
-                font-size: 1rem !important;
-            }
-            .nav-dropdown-content a {
-                padding: 14px 16px 14px 32px !important;
-            }
-        }
-
-    
-        /* DROPDOWN FIX - Must be at the end to override */
-        @media (max-width: 768px) {
-            .nav-dropdown-content {
-                display: none !important;
-                position: static !important;
-                width: 100% !important;
-                background: rgba(255,255,255,0.03) !important;
-                border: none !important;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
-            
-            .nav-dropdown.open > .nav-dropdown-content {
-                display: block !important;
-                max-height: 500px !important;
-                overflow: visible !important;
-            }
-            
-            .nav-dropdown-btn {
-                width: 100% !important;
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                padding: 18px 20px !important;
-                font-size: 1.1rem !important;
-                color: #fff !important;
-                background: transparent !important;
-                border: none !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-                cursor: pointer !important;
-            }
-            
-            .nav-dropdown-btn::after {
-                content: '▼' !important;
-                font-size: 0.8rem !important;
-                transition: transform 0.3s ease !important;
-                margin-left: auto !important;
-            }
-            
-            .nav-dropdown.open > .nav-dropdown-btn::after {
-                transform: rotate(180deg) !important;
-            }
-            
-            .nav-dropdown-content a {
-                display: block !important;
-                padding: 14px 20px 14px 35px !important;
-                font-size: 1rem !important;
-                color: rgba(255,255,255,0.7) !important;
-                text-decoration: none !important;
                 border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-                background: transparent !important;
-            }
-            
-            .nav-dropdown-content a:hover,
-            .nav-dropdown-content a:active {
-                background: rgba(255,255,255,0.05) !important;
-                color: #fff !important;
-            }
-            
-            .nav-dropdown-content .dropdown-header {
-                display: block !important;
-                padding: 12px 20px 8px 35px !important;
-                font-size: 0.7rem !important;
-                color: #00d4aa !important;
-                text-transform: uppercase !important;
-                letter-spacing: 1px !important;
-                background: transparent !important;
             }
         }
 
@@ -649,200 +514,51 @@
     </script>
 
     <script>
+    // Mobile Menu
     (function() {
-        'use strict';
+        var toggle = document.getElementById('mobileToggle');
+        var menu = document.getElementById('navMenu');
         
-        var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
-        var menu = document.getElementById('navMenu') || document.querySelector('.nav-links');
+        if (!toggle || !menu) return;
         
-        if (!toggle || !menu) {
-            console.warn('Mobile menu elements not found');
-            return;
-        }
-        
-        // Remove old event listeners by cloning
-        var newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        toggle = newToggle;
-        
-        function closeMenu() {
-            menu.classList.remove('open');
-            document.body.style.overflow = '';
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-        }
-        
-        function openMenu() {
-            menu.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Toggle click
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
-            if (menu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
+            menu.classList.toggle('open');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
         });
         
-        // Dropdown toggles
+        // Dropdown toggle
         document.querySelectorAll('.nav-dropdown-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                     e.preventDefault();
                     e.stopPropagation();
-                    
-                    var dropdown = this.parentElement;
-                    var isOpen = dropdown.classList.contains('open');
-                    
-                    // Close all dropdowns
-                    document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                        d.classList.remove('open');
-                    });
-                    
-                    // Open this one if it was closed
-                    if (!isOpen) {
-                        dropdown.classList.add('open');
-                    }
+                    var dd = this.parentElement;
+                    var wasOpen = dd.classList.contains('open');
+                    document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+                    if (!wasOpen) dd.classList.add('open');
                 }
             });
         });
         
-        // Close menu when clicking a link
-        menu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
+        // Close menu on link click
+        menu.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
-                    closeMenu();
+                    menu.classList.remove('open');
+                    document.body.style.overflow = '';
                 }
             });
         });
         
-        // Close on resize to desktop
+        // Close on resize
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
-                closeMenu();
+                menu.classList.remove('open');
+                document.body.style.overflow = '';
             }
         });
-        
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && menu.classList.contains('open')) {
-                closeMenu();
-            }
-        });
-    })();
-    </script>
-
-
-    <script>
-    (function() {
-        'use strict';
-        
-        var toggle = document.getElementById('mobileToggle') || document.querySelector('.mobile-toggle');
-        var menu = document.getElementById('navMenu') || document.querySelector('.nav-links');
-        
-        if (!toggle || !menu) {
-            console.warn('Mobile menu elements not found');
-            return;
-        }
-        
-        // Clone toggle to remove old listeners
-        var newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        toggle = newToggle;
-        
-        function closeAllDropdowns() {
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-        }
-        
-        function closeMenu() {
-            menu.classList.remove('open');
-            document.body.style.overflow = '';
-            closeAllDropdowns();
-        }
-        
-        function openMenu() {
-            menu.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Main toggle click
-        toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (menu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-        
-        // Dropdown button clicks
-        var dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
-        dropdownBtns.forEach(function(btn) {
-            // Clone to remove old listeners
-            var newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-            
-            newBtn.addEventListener('click', function(e) {
-                // Only handle on mobile
-                if (window.innerWidth > 768) return;
-                
-                e.preventDefault();
-                e.stopPropagation();
-                
-                var dropdown = this.closest('.nav-dropdown');
-                if (!dropdown) return;
-                
-                var wasOpen = dropdown.classList.contains('open');
-                
-                // Close all dropdowns first
-                closeAllDropdowns();
-                
-                // Toggle this dropdown
-                if (!wasOpen) {
-                    dropdown.classList.add('open');
-                }
-            });
-        });
-        
-        // Close menu when clicking a nav link (not dropdown btn)
-        menu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    // Small delay to allow navigation
-                    setTimeout(closeMenu, 100);
-                }
-            });
-        });
-        
-        // Close on resize to desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                closeMenu();
-            }
-        });
-        
-        // Close on escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeMenu();
-            }
-        });
-        
-        // Prevent body scroll when menu is open
-        menu.addEventListener('touchmove', function(e) {
-            e.stopPropagation();
-        }, { passive: true });
-        
     })();
     </script>
 
