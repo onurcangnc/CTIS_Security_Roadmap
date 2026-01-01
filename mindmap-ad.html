@@ -165,13 +165,13 @@
             <a href="index.html" class="nav-brand">
                 <span>🏢</span> Active Directory
             </a>
-            <button class="mobile-toggle" id="mobileToggle">☰</button>
+            <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('open'); document.body.style.overflow = document.getElementById('navMenu').classList.contains('open') ? 'hidden' : '';">☰</button>☰</button>
             <div class="nav-links" id="navMenu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="mindmap-circular.html" class="nav-link">🎯 Overview</a>
 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">Offensive</button>
+                    <button class="nav-dropdown-btn" onclick="if(window.innerWidth<=768){event.stopPropagation();this.parentElement.classList.toggle('open');}">Offensive</button>
                     <div class="nav-dropdown-content">
                         <span class="dropdown-header">Mind Maps</span>
                         <a href="mindmap-web.html">🌐 Web Pentesting</a>
@@ -187,7 +187,7 @@
                 <a href="mindmap-ai.html" class="nav-link">🤖 AI</a>
 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">Resources</button>
+                    <button class="nav-dropdown-btn" onclick="if(window.innerWidth<=768){event.stopPropagation();this.parentElement.classList.toggle('open');}">Resources</button>
                     <div class="nav-dropdown-content">
                         <a href="paths.html">📋 Learning Paths</a>
                         <a href="modules.html">📦 HTB Modules</a>
