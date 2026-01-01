@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>CTIS Curriculum - CyberSkillTree</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -12,7 +12,7 @@
             --text: #fff; --text-muted: rgba(255,255,255,0.5); --accent: #00d4aa;
             --bilkent: #e91e63; --htb: #9fef00; --thm: #1bd96a;
         }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6;  min-height: 100vh; min-height: -webkit-fill-available; }
         .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 0 20px; }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .nav-brand { font-weight: 700; font-size: 1rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
@@ -86,14 +86,19 @@
                 bottom: 0;
                 width: 100%;
                 height: calc(100vh - 60px);
+                height: calc(100dvh - 60px);
+                height: -webkit-fill-available;
+                max-height: calc(100vh - 60px);
                 background: rgba(10,10,15,0.99); 
                 flex-direction: column;
                 align-items: stretch;
                 padding: 20px; 
+                padding-bottom: env(safe-area-inset-bottom, 20px);
                 overflow-y: auto;
                 overflow-x: hidden;
                 z-index: 10000;
                 -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
             }
             .nav-links.open { display: flex; }
             .mobile-toggle { display: block; }

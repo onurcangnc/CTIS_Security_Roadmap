@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>CTIS Security Tree - Circular View</title>
     <script src="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/es6/jsmind.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/style/jsmind.css">
@@ -15,7 +15,7 @@
             --web: #e74c3c; --network: #ff4757; --ad: #c0392b; --redteam: #e74c3c;
             --defensive: #3498db; --ai: #9b59b6; --wifi: #f39c12; --mobile: #e91e63;
         }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); overflow: hidden; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); min-height: 100vh; color: var(--text); overflow: hidden;  min-height: 100vh; min-height: -webkit-fill-available; }
 
                 /* Navigation */
         .nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 1000; padding: 0 20px; }
@@ -159,14 +159,19 @@
                 bottom: 0;
                 width: 100%;
                 height: calc(100vh - 60px);
+                height: calc(100dvh - 60px);
+                height: -webkit-fill-available;
+                max-height: calc(100vh - 60px);
                 background: rgba(10,10,15,0.99); 
                 flex-direction: column;
                 align-items: stretch;
                 padding: 20px; 
+                padding-bottom: env(safe-area-inset-bottom, 20px);
                 overflow-y: auto;
                 overflow-x: hidden;
                 z-index: 10000;
                 -webkit-overflow-scrolling: touch;
+                overscroll-behavior: contain;
             }
             .nav-links.open { display: flex; }
             .mobile-toggle { display: block; }
