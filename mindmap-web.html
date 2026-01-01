@@ -253,23 +253,23 @@
 </style>
 </head>
 <body>
-    <button class="legend-toggle" title="Toggle Legend">📋</button>
+    <button class="legend-toggle" onclick="toggleLegend()" title="Toggle Legend">📋</button>
 
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">
                 <span>🌐</span> Web Pentesting
             </a>
-            <button class="mobile-toggle" aria-label="Menu">☰</button>
+            <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
             <div class="nav-links" id="navMenu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="mindmap-circular.html" class="nav-link">🎯 Overview</a>
+                <a href="index.html" class="nav-link" onclick="closeMobileMenu()">Home</a>
+                <a href="mindmap-circular.html" class="nav-link" onclick="closeMobileMenu()">🎯 Overview</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">Offensive</button>
+                    <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">Offensive</button>
                     <div class="nav-dropdown-content">
                         <span class="dropdown-header">Mind Maps</span>
-                        <a href="mindmap-web.html">🌐 Web Pentesting</a>
+                        <a onclick="closeMobileMenu()" href="mindmap-web.html">🌐 Web Pentesting</a>
                         <a href="mindmap-network.html">🔌 Network</a>
                         <a href="mindmap-ad.html">🏢 Active Directory</a>
                         <a href="mindmap-redteam.html">🎯 Red Team</a>
@@ -278,13 +278,13 @@
                     </div>
                 </div>
                 
-                <a href="mindmap-defensive.html" class="nav-link">🛡️ Defensive</a>
-                <a href="mindmap-ai.html" class="nav-link">🤖 AI</a>
+                <a href="mindmap-defensive.html" class="nav-link" onclick="closeMobileMenu()">🛡️ Defensive</a>
+                <a href="mindmap-ai.html" class="nav-link" onclick="closeMobileMenu()">🤖 AI</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">Resources</button>
+                    <button class="nav-dropdown-btn" onclick="toggleDropdown(this)">Resources</button>
                     <div class="nav-dropdown-content">
-                        <a href="paths.html">📋 Learning Paths</a>
+                        <a onclick="closeMobileMenu()" href="paths.html">📋 Learning Paths</a>
                         <a href="modules.html">📦 HTB Modules</a>
                         <a href="oscp-machines.html">🎓 OSCP Machines</a>
                         <a href="ctis.html">📚 CTIS Curriculum</a>
@@ -508,145 +508,61 @@
 
 
 <script>
-// Mobile Menu - Event Delegation Version
-(function() {
-    var menu, menuBtn;
+// Mobile Menu - Ultra Simple
+function toggleMobileMenu() {
+    var menu = document.querySelector('.nav-links') || document.getElementById('navMenu');
+    if (!menu) return;
     
-    function init() {
-        menuBtn = document.querySelector('.mobile-toggle');
-        menu = document.querySelector('.nav-links') || document.getElementById('navMenu');
-        
-        if (!menuBtn || !menu) {
-            console.log('Mobile menu: elements not found');
-            return;
-        }
-        
-        console.log('Mobile menu initialized');
-    }
-    
-    // Single event listener for everything
-    document.addEventListener('click', function(e) {
-        if (!menu || !menuBtn) return;
-        if (window.innerWidth > 768) return;
-        
-        var target = e.target;
-        
-        // Check if clicked on mobile toggle button
-        if (target.closest('.mobile-toggle')) {
-            e.preventDefault();
-            e.stopPropagation();
-            menu.classList.toggle('open');
-            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-            console.log('Menu toggled:', menu.classList.contains('open'));
-            return;
-        }
-        
-        // Check if clicked on dropdown button
-        var dropdownBtn = target.closest('.nav-dropdown-btn');
-        if (dropdownBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            var dropdown = dropdownBtn.closest('.nav-dropdown');
-            var wasOpen = dropdown.classList.contains('open');
-            
-            // Close all dropdowns
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-            
-            // Toggle clicked one
-            if (!wasOpen) {
-                dropdown.classList.add('open');
-            }
-            
-            console.log('Dropdown toggled:', !wasOpen);
-            return;
-        }
-        
-        // Check if clicked on a link inside menu
-        var link = target.closest('.nav-dropdown-content a, .nav-links > .nav-link');
-        if (link && menu.contains(link)) {
-            // Let the link work, but close menu after small delay
-            setTimeout(function() {
-                menu.classList.remove('open');
-                document.body.style.overflow = '';
-                document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                    d.classList.remove('open');
-                });
-            }, 100);
-            return;
-        }
-        
-        // Outside click - close menu
-        if (menu.classList.contains('open')) {
-            if (!menu.contains(target) && !menuBtn.contains(target)) {
-                menu.classList.remove('open');
-                document.body.style.overflow = '';
-                document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                    d.classList.remove('open');
-                });
-                console.log('Menu closed (outside click)');
-            }
-        }
-    }, true); // Use capture phase
-    
-    // ESC key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu && menu.classList.contains('open')) {
-            menu.classList.remove('open');
-            document.body.style.overflow = '';
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-        }
-    });
-    
-    // Resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && menu) {
-            menu.classList.remove('open');
-            document.body.style.overflow = '';
-            document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                d.classList.remove('open');
-            });
-        }
-    });
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    if (menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
     } else {
-        init();
+        menu.classList.add('open');
+        document.body.style.overflow = 'hidden';
     }
-})();
+    console.log('Menu:', menu.classList.contains('open'));
+}
+
+function toggleDropdown(btn) {
+    if (window.innerWidth > 768) return;
+    
+    var dropdown = btn.parentElement;
+    var wasOpen = dropdown.classList.contains('open');
+    
+    // Close all dropdowns
+    var all = document.querySelectorAll('.nav-dropdown');
+    for (var i = 0; i < all.length; i++) {
+        all[i].classList.remove('open');
+    }
+    
+    // Toggle this one
+    if (!wasOpen) {
+        dropdown.classList.add('open');
+    }
+    console.log('Dropdown:', !wasOpen);
+}
+
+function closeMobileMenu() {
+    var menu = document.querySelector('.nav-links') || document.getElementById('navMenu');
+    if (menu && window.innerWidth <= 768) {
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
+console.log('Mobile menu ready');
 </script>
 
 
 <script>
-// Legend toggle
-(function() {
-    document.addEventListener('click', function(e) {
-        var btn = e.target.closest('.legend-toggle');
-        var legend = document.querySelector('.legend');
-        
-        if (btn && legend) {
-            e.preventDefault();
-            e.stopPropagation();
-            legend.classList.toggle('show');
-            btn.classList.toggle('active');
-            return;
-        }
-        
-        // Close legend on outside click
-        if (legend && legend.classList.contains('show')) {
-            var legendBtn = document.querySelector('.legend-toggle');
-            if (!legend.contains(e.target) && (!legendBtn || !legendBtn.contains(e.target))) {
-                legend.classList.remove('show');
-                if (legendBtn) legendBtn.classList.remove('active');
-            }
-        }
-    });
-})();
+function toggleLegend() {
+    var legend = document.querySelector('.legend');
+    var btn = document.querySelector('.legend-toggle');
+    if (legend) {
+        legend.classList.toggle('show');
+        if (btn) btn.classList.toggle('active');
+    }
+}
 </script>
 
 </body>
