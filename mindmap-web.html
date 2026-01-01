@@ -276,190 +276,260 @@
     </div>
 
 <script>
-// Web Pentesting Mind Map Data
-const mind_data = {
-    "meta": {
-        "name": "Web Pentesting",
-        "author": "CTIS Security Roadmap",
-        "version": "1.0"
-    },
-    "format": "node_tree",
-    "data": {
-        "id": "root",
-        "topic": "🌐 Web Application Pentesting",
-        "direction": "right",
-        "expanded": true,
-        "children": [
-            {
-                "id": "recon",
-                "topic": "🔍 Reconnaissance",
-                "direction": "right",
-                "children": [
-                    {"id": "recon1", "topic": "OSINT & Footprinting", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/osint"},
-                    {"id": "recon2", "topic": "Web Application Fingerprinting", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/web-application-fingerprinting"},
-                    {"id": "recon3", "topic": "Subdomain Enumeration", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/subdomain-enumeration"},
-                    {"id": "recon4", "topic": "Bug Bounty Reconnaissance", "cls": "thm", "url": "https://tryhackme.com/room/bbtrecon"}
-                ]
-            },
-            {
-                "id": " vuln",
-                "topic": "🎯 Vulnerability Assessment",
-                "children": [
-                    {"id": "vuln1", "topic": "Introduction to Web Applications", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/introduction-to-web-applications"},
-                    {"id": "vuln2", "topic": "HTTP Master", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/http-master"},
-                    {"id": "vuln3", "topic": "Web Application Scanning", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/web-application-scanning"},
-                    {"id": "vuln4", "topic": "Introduction to Burp Suite", "cls": "thm", "url": "https://tryhackme.com/room/burpsuite1"}
-                ]
-            },
-            {
-                "id": "sqli",
-                "topic": "💉 SQL Injection",
-                "children": [
-                    {"id": "sqli1", "topic": "SQL Injection Fundamentals", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/sql-injection-fundamentals"},
-                    {"id": "sqli2", "topic": "SQL Injection Attacks", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/sql-injection-attacks"},
-                    {"id": "sqli3", "topic": "Blind SQL Injection", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/blind-sql-injection"},
-                    {"id": "sqli4", "topic": "SQLMap Essentials", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/sqlmap-essentials"},
-                    {"id": "sqli5", "topic": "SQL Injection", "cls": "thm", "url": "https://tryhackme.com/room/sqli"},
-                    {"id": "sqli6", "topic": "Billion Laughs Attack", "cls": "cert", "url": "https://portswigger.net/web-security/sql-injection"}
-                ]
-            },
-            {
-                "id": "xss",
-                "topic": "⚠️ XSS Attacks",
-                "children": [
-                    {"id": "xss1", "topic": "Cross-Site Scripting (XSS)", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/cross-site-scripting-xss"},
-                    {"id": "xss2", "topic": "Advanced XSS Attacks", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/advanced-xss-attacks"},
-                    {"id": "xss3", "topic": "XSS Hunter", "cls": "thm", "url": "https://tryhackme.com/room/xsshunter"},
-                    {"id": "xss4", "topic": "OWASP XSS", "cls": "cert", "url": "https://portswigger.net/web-security/cross-site-scripting"}
-                ]
-            },
-            {
-                "id": "auth",
-                "topic": "🔑 Authentication Attacks",
-                "children": [
-                    {"id": "auth1", "topic": "Authentication Bypass", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/authentication-bypass"},
-                    {"id": "auth2", "topic": "Password Attacks", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/password-attacks"},
-                    {"id": "auth3", "topic": "JWT Attacks", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/jwt-attacks"},
-                    {"id": "auth4", "topic": "Introduction to JWT", "cls": "thm", "url": "https://tryhackme.com/room/jwt"}
-                ]
-            },
-            {
-                "id": "session",
-                "topic": "🍪 Session Attacks",
-                "children": [
-                    {"id": "sess1", "topic": "Session Management", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/session-management"},
-                    {"id": "sess2", "topic": "Cookie Attacks", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/cookie-attacks"},
-                    {"id": "sess3", "topic": "CSRF", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/csrf"}
-                ]
-            },
-            {
-                "id": "file",
-                "topic": "📁 File Attacks",
-                "children": [
-                    {"id": "file1", "topic": "File Upload Attacks", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/file-upload-attacks"},
-                    {"id": "file2", "topic": "Path Traversal", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/path-traversal"},
-                    {"id": "file3", "topic": "Local File Inclusion (LFI)", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/local-file-inclusion"},
-                    {"id": "file4", "topic": "File Inclusion", "cls": "thm", "url": "https://tryhackme.com/room/fileinclusion"}
-                ]
-            },
-            {
-                "id": "api",
-                "topic": "🔌 API Security",
-                "children": [
-                    {"id": "api1", "topic": "API Testing Essentials", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/api-testing-essentials"},
-                    {"id": "api2", "topic": "REST API Testing", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/rest-api-testing"},
-                    {"id": "api3", "topic": "GraphQL API Testing", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/graphql-api-testing"},
-                    {"id": "api4", "topic": "API Hacking", "cls": "thm", "url": "https://tryhackme.com/room/apihacking"}
-                ]
-            },
-            {
-                "id": "ssti",
-                "topic": "🖥️ SSTI & Template Injection",
-                "children": [
-                    {"id": "ssti1", "topic": "Server-Side Template Injection", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/server-side-template-injection"},
-                    {"id": "ssti2", "topic": "SSTI (Python, Twig, ERB)", "cls": "thm", "url": "https://tryhackme.com/room/ssti"}
-                ]
-            },
-            {
-                "id": "xxe",
-                "topic": "📄 XXE Attacks",
-                "children": [
-                    {"id": "xxe1", "topic": "XML External Entity Injection", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/xml-external-entity-injection"},
-                    {"id": "xxe2", "topic": "XXE", "cls": "thm", "url": "https://tryhackme.com/room/xxe"},
-                    {"id": "xxe3", "topic": "OWASP XXE", "cls": "cert", "url": "https://portswigger.net/web-security/xxe"}
-                ]
-            },
-            {
-                "id": "ssrf",
-                "topic": "🌐 SSRF Attacks",
-                "children": [
-                    {"id": "ssrf1", "topic": "Server-Side Request Forgery", "cls": "htb", "url": "https://academy.hackthebox.com/course/preview/server-side-request-forgery"},
-                    {"id": "ssrf2", "topic": "SSRF", "cls": "thm", "url": "https://tryhackme.com/room/ssrf"},
-                    {"id": "ssrf3", "topic": "OWASP SSRF", "cls": "cert", "url": "https://portswigger.net/web-security/ssrf"}
-                ]
-            },
-            {
-                "id": "tools",
-                "topic": "🛠️ Tools & Resources",
-                "children": [
-                    {"id": "tool1", "topic": "Burp Suite Certified Practitioner", "cls": "cert", "url": "https://portswigger.net/web-security"},
-                    {"id": "tool2", "topic": "OWASP Top 10", "cls": "cert", "url": "https://owasp.org/www-project-top-ten/"}
+        // ============================================
+        // Module URLs - Verified Dec 2024
+        // ============================================
+        const links = {
+            // ============================================
+            // HTB Academy - Web Pentesting Modules (Slug Format)
+            // ============================================
+
+            // SQL Injection
+            "h_sqli_fund": "https://academy.hackthebox.com/course/preview/sql-injection-fundamentals",
+            "h_sqlmap": "https://academy.hackthebox.com/course/preview/sqlmap-essentials",
+            "h_blind_sqli": "https://academy.hackthebox.com/course/preview/blind-sql-injection",
+            "h_adv_sqli": "https://academy.hackthebox.com/course/preview/advanced-sql-injections",
+
+            // XSS & Client-Side
+            "h_xss": "https://academy.hackthebox.com/course/preview/cross-site-scripting-xss",
+            "h_adv_xss": "https://academy.hackthebox.com/course/preview/advanced-xss-and-csrf-exploitation",
+            "h_session": "https://academy.hackthebox.com/course/preview/session-security",
+            "h_js_deob": "https://academy.hackthebox.com/course/preview/javascript-deobfuscation",
+
+            // File Attacks
+            "h_file_inc": "https://academy.hackthebox.com/course/preview/file-inclusion",
+            "h_file_upload": "https://academy.hackthebox.com/course/preview/file-upload-attacks",
+
+            // Command & Server-Side Attacks
+            "h_cmd_inj": "https://academy.hackthebox.com/course/preview/command-injections",
+            "h_ssti": "https://academy.hackthebox.com/course/preview/server-side-attacks",
+
+            // Deserialization
+            "h_deser": "https://academy.hackthebox.com/course/preview/introduction-to-deserialization-attacks",
+            "h_adv_deser": "https://academy.hackthebox.com/course/preview/advanced-deserialization-attacks",
+
+            // API & HTTP
+            "h_api": "https://academy.hackthebox.com/course/preview/web-service--api-attacks",
+            "h_http_attacks": "https://academy.hackthebox.com/course/preview/http-attacks",
+            "h_http_misconfig": "https://academy.hackthebox.com/course/preview/abusing-http-misconfigurations",
+
+            // Authentication
+            "h_broken_auth": "https://academy.hackthebox.com/course/preview/broken-authentication",
+            "h_brute_force": "https://academy.hackthebox.com/course/preview/login-brute-forcing",
+            "h_attacking_auth": "https://academy.hackthebox.com/course/preview/attacking-authentication-mechanisms",
+
+            // Modern Web
+            "h_modern_web": "https://academy.hackthebox.com/course/preview/modern-web-exploitation-techniques",
+            "h_nosql": "https://academy.hackthebox.com/course/preview/introduction-to-nosql-injection",
+            "h_injection_attacks": "https://academy.hackthebox.com/course/preview/injection-attacks",
+
+            // Code Review & Whitebox
+            "h_whitebox": "https://academy.hackthebox.com/course/preview/whitebox-pentesting-101-command-injection",
+            "h_secure_code": "https://academy.hackthebox.com/course/preview/secure-coding-101-javascript",
+            "h_wordpress": "https://academy.hackthebox.com/course/preview/hacking-wordpress",
+
+            // Tools & Fuzzing
+            "h_web_proxies": "https://academy.hackthebox.com/course/preview/using-web-proxies",
+            "h_ffuf": "https://academy.hackthebox.com/course/preview/attacking-web-applications-with-ffuf",
+
+            // Bug Bounty
+            "h_bug_bounty": "https://academy.hackthebox.com/course/preview/bug-bounty-hunting-process",
+            "h_documentation": "https://academy.hackthebox.com/course/preview/documentation--reporting",
+
+            // Fundamentals
+            "h_web_apps_intro": "https://academy.hackthebox.com/course/preview/introduction-to-web-applications",
+            "h_web_requests": "https://academy.hackthebox.com/course/preview/web-requests",
+
+            // ============================================
+            // TryHackMe Rooms (Verified Dec 2024)
+            // ============================================
+
+            // SQL Injection
+            "t_sqli": "https://tryhackme.com/room/sqlinjectionlm",
+            "t_sqli_lab": "https://tryhackme.com/room/sqlilab",
+            "t_adv_sqli": "https://tryhackme.com/room/advancedsqlinjection",
+
+            // XSS
+            "t_xss": "https://tryhackme.com/room/axss",
+            "t_xss_lab": "https://tryhackme.com/room/xss",
+
+            // File Attacks
+            "t_file_inc": "https://tryhackme.com/room/fileinc",
+            "t_file_path": "https://tryhackme.com/room/filepathtraversal",
+            "t_upload": "https://tryhackme.com/room/uploadvulns",
+
+            // SSRF & Server-Side
+            "t_ssrf": "https://tryhackme.com/room/ssrfhr",
+            "t_ssrf_intro": "https://tryhackme.com/room/ssrfqi",
+
+            // Command Injection
+            "t_cmd_inj": "https://tryhackme.com/room/oscommandinjection",
+
+            // Deserialization
+            "t_deser": "https://tryhackme.com/room/insecuredeserialisation",
+
+            // Authentication & JWT
+            "t_jwt": "https://tryhackme.com/room/jwtsecurity",
+            "t_auth_bypass": "https://tryhackme.com/room/authenticationbypass",
+            "t_oauth": "https://tryhackme.com/room/oauthvulnerabilities",
+
+            // Burp Suite
+            "t_burp": "https://tryhackme.com/room/burpsuitebasics",
+            "t_burp_repeater": "https://tryhackme.com/room/burpsuiterepeater",
+            "t_burp_intruder": "https://tryhackme.com/room/burpsuiteintruder",
+
+            // OWASP
+            "t_owasp": "https://tryhackme.com/room/owasptop10",
+            "t_vuln101": "https://tryhackme.com/room/vulnerabilities101",
+            "t_webapp_basics": "https://tryhackme.com/room/webapplicationbasics",
+
+            // ============================================
+            // Certifications
+            // ============================================
+            "c_ewpt": "https://ine.com/learning/certifications/internal/elearnsecurity-web-application-penetration-tester",
+            "c_ewptx": "https://ine.com/learning/certifications/internal/elearnsecurity-web-application-penetration-tester-extreme",
+            "c_oswe": "https://www.offsec.com/courses/web-300/",
+            "c_cwes": "https://academy.hackthebox.com/preview/certifications/htb-certified-web-exploitation-specialist",
+            "c_cwee": "https://academy.hackthebox.com/preview/certifications/htb-certified-web-exploitation-expert",
+
+            // ============================================
+            // Learning Paths
+            // ============================================
+            "p_htb": "https://academy.hackthebox.com/paths",
+            "p_thm": "https://tryhackme.com/paths",
+            "p_portswigger": "https://portswigger.net/web-security"
+        };
+
+        const mind = {
+            meta: { name: "web", author: "ctis" },
+            format: "node_tree",
+            data: {
+                id: "root", topic: "🌐 WEB PENTESTING", expanded: true,
+                children: [
+                    { id: "sqli", topic: "💉 SQL Injection", direction: "right", children: [
+                        {id: "h_sqli_fund", topic: "HTB: SQL Injection Fundamentals"},
+                        {id: "h_sqlmap", topic: "HTB: SQLMap Essentials"},
+                        {id: "h_blind_sqli", topic: "HTB: Blind SQL Injection"},
+                        {id: "h_adv_sqli", topic: "HTB: Advanced SQL Injections"},
+                        {id: "t_sqli", topic: "THM: SQL Injection"},
+                        {id: "t_sqli_lab", topic: "THM: SQLi Lab"},
+                        {id: "t_adv_sqli", topic: "THM: Advanced SQLi"}
+                    ]},
+                    { id: "xss", topic: "⚡ XSS & Client-Side", direction: "right", children: [
+                        {id: "h_xss", topic: "HTB: Cross-Site Scripting (XSS)"},
+                        {id: "h_adv_xss", topic: "HTB: Advanced XSS & CSRF"},
+                        {id: "h_session", topic: "HTB: Session Security"},
+                        {id: "h_js_deob", topic: "HTB: JavaScript Deobfuscation"},
+                        {id: "t_xss", topic: "THM: XSS"},
+                        {id: "t_xss_lab", topic: "THM: XSS Lab"}
+                    ]},
+                    { id: "file", topic: "📁 File Attacks", direction: "right", children: [
+                        {id: "h_file_inc", topic: "HTB: File Inclusion"},
+                        {id: "h_file_upload", topic: "HTB: File Upload Attacks"},
+                        {id: "t_file_inc", topic: "THM: File Inclusion"},
+                        {id: "t_file_path", topic: "THM: File Path Traversal"},
+                        {id: "t_upload", topic: "THM: Upload Vulnerabilities"}
+                    ]},
+                    { id: "cmd", topic: "💻 Command Injection", direction: "right", children: [
+                        {id: "h_cmd_inj", topic: "HTB: Command Injections"},
+                        {id: "t_cmd_inj", topic: "THM: OS Command Injection"}
+                    ]},
+                    { id: "ssrf", topic: "🔗 SSRF & Server-Side", direction: "right", children: [
+                        {id: "h_ssti", topic: "HTB: Server-Side Attacks"},
+                        {id: "t_ssrf", topic: "THM: SSRF"},
+                        {id: "t_ssrf_intro", topic: "THM: Intro to SSRF"}
+                    ]},
+                    { id: "deser", topic: "📦 Deserialization", direction: "left", children: [
+                        {id: "h_deser", topic: "HTB: Intro to Deserialization"},
+                        {id: "h_adv_deser", topic: "HTB: Advanced Deserialization"},
+                        {id: "t_deser", topic: "THM: Insecure Deserialisation"}
+                    ]},
+                    { id: "api", topic: "🔌 API & HTTP Attacks", direction: "left", children: [
+                        {id: "h_api", topic: "HTB: Web Service & API Attacks"},
+                        {id: "h_http_attacks", topic: "HTB: HTTP Attacks"},
+                        {id: "h_http_misconfig", topic: "HTB: Abusing HTTP Misconfigs"}
+                    ]},
+                    { id: "auth", topic: "🔐 Authentication", direction: "left", children: [
+                        {id: "h_broken_auth", topic: "HTB: Broken Authentication"},
+                        {id: "h_brute_force", topic: "HTB: Login Brute Forcing"},
+                        {id: "h_attacking_auth", topic: "HTB: Attacking Auth Mechanisms"},
+                        {id: "t_jwt", topic: "THM: JWT Security"},
+                        {id: "t_auth_bypass", topic: "THM: Authentication Bypass"},
+                        {id: "t_oauth", topic: "THM: OAuth Vulnerabilities"}
+                    ]},
+                    { id: "modern", topic: "🚀 Modern Web", direction: "left", children: [
+                        {id: "h_modern_web", topic: "HTB: Modern Web Exploitation"},
+                        {id: "h_nosql", topic: "HTB: Intro to NoSQL Injection"},
+                        {id: "h_injection_attacks", topic: "HTB: Injection Attacks"}
+                    ]},
+                    { id: "whitebox", topic: "📝 Code Review", direction: "left", children: [
+                        {id: "h_whitebox", topic: "HTB: Whitebox Pentesting 101"},
+                        {id: "h_secure_code", topic: "HTB: Secure Coding 101"},
+                        {id: "h_wordpress", topic: "HTB: Hacking WordPress"}
+                    ]},
+                    { id: "tools", topic: "🛠️ Tools & Fuzzing", direction: "left", children: [
+                        {id: "h_web_proxies", topic: "HTB: Using Web Proxies"},
+                        {id: "h_ffuf", topic: "HTB: Web Fuzzing with Ffuf"},
+                        {id: "t_burp", topic: "THM: Burp Suite Basics"},
+                        {id: "t_burp_repeater", topic: "THM: Burp Suite Repeater"},
+                        {id: "t_burp_intruder", topic: "THM: Burp Suite Intruder"}
+                    ]},
+                    { id: "fundamentals", topic: "📖 Fundamentals", direction: "left", children: [
+                        {id: "h_web_apps_intro", topic: "HTB: Intro to Web Applications"},
+                        {id: "h_web_requests", topic: "HTB: Web Requests"},
+                        {id: "t_owasp", topic: "THM: OWASP Top 10"},
+                        {id: "t_vuln101", topic: "THM: Vulnerabilities 101"},
+                        {id: "t_webapp_basics", topic: "THM: Web Application Basics"}
+                    ]},
+                    { id: "bugbounty", topic: "🎯 Bug Bounty", direction: "right", children: [
+                        {id: "h_bug_bounty", topic: "HTB: Bug Bounty Hunting Process"},
+                        {id: "h_documentation", topic: "HTB: Documentation & Reporting"}
+                    ]},
+                    { id: "certs", topic: "🏆 Certifications", direction: "right", children: [
+                        {id: "c_ewpt", topic: "eWPT (INE)"},
+                        {id: "c_ewptx", topic: "eWPTX (INE)"},
+                        {id: "c_oswe", topic: "OSWE (OffSec)"},
+                        {id: "c_cwes", topic: "CWES (HTB)"},
+                        {id: "c_cwee", topic: "CWEE (HTB)"}
+                    ]},
+                    { id: "paths", topic: "📚 Learning Paths", direction: "right", children: [
+                        {id: "p_htb", topic: "HTB Academy Paths"},
+                        {id: "p_thm", topic: "TryHackMe Paths"},
+                        {id: "p_portswigger", topic: "PortSwigger Academy"}
+                    ]}
                 ]
             }
-        ]
-    }
-};
+        };
 
-// Initialize jsMind
-const options = {
-    container: 'jsmind_container',
-    theme: 'primary',
-    editable: false,
-    view: {
-        hmargin: 120,
-        vmargin: 80,
-        line_width: 2,
-        line_color: '#ff4757'
-    },
-    layout: {
-        hspace: 80,
-        vspace: 20,
-        pspace: 15
-    },
-    default_event_handle: {
-        enable_mousedown_handle: true,
-        enable_click_handle: true,
-        enable_dblclick_handle: true
-    },
-    shortcut: {
-        enable: true,
-        handles: {},
-        mapping: {
-            addchild: 45,
-            addbrother: 13,
-            editnode: 113,
-            delnode: 46,
-            toggle: 32,
-            left: 37,
-            up: 38,
-            right: 39,
-            down: 40,
-        }
-    }
-};
+        const options = {
+            container: 'jsmind_container', editable: false, theme: 'dark',
+            view: { engine: 'svg', draggable: true, line_width: 2, line_color: '#ff4757' },
+            layout: { hspace: 100, vspace: 25 }
+        };
 
-const jm = new jsMind(options);
-jm.show(mind_data);
+        let jm = new jsMind(options);
+        jm.show(mind);
 
-// Click handler for nodes with URLs
-jm.add_event_listener(function(type, data) {
-    if (type === 2) { // Click event
-        const node = data.node;
-        if (node && node.data && node.data.url) {
-            window.open(node.data.url, '_blank');
-        }
-    }
-});
+        setTimeout(() => {
+            document.querySelectorAll('jmnode').forEach(n => {
+                const id = n.getAttribute('nodeid');
+                if (id?.startsWith('h_')) n.classList.add('htb');
+                if (id?.startsWith('t_')) n.classList.add('thm');
+                if (id?.startsWith('c_')) n.classList.add('cert');
+                if (id?.startsWith('p_')) n.classList.add('htb');
+                if (['sqli','xss','file','cmd','ssrf','deser','api','auth','modern','whitebox','tools','fundamentals','bugbounty','certs','paths'].includes(id)) n.classList.add('cat');
+
+                if (links[id]) {
+                    n.style.cursor = 'pointer';
+                    n.title = 'Click to open: ' + links[id];
+                    n.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        window.open(links[id], '_blank');
+                    });
+                }
+            });
+        }, 300);
+</script>
 
 // ===== MOBILE MENU SCRIPT =====
 document.addEventListener('DOMContentLoaded', function() {
