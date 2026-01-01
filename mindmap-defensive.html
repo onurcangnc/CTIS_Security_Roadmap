@@ -955,5 +955,34 @@
     })();
     </script>
 
+
+    <script>
+    // Legend Toggle for Mobile
+    (function() {
+        var legendToggle = document.querySelector('.legend-toggle');
+        var legend = document.querySelector('.legend');
+        
+        if (!legendToggle || !legend) return;
+        
+        legendToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            legend.classList.toggle('show');
+            legendToggle.classList.toggle('active');
+        });
+        
+        // Close legend when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && legend.classList.contains('show')) {
+                if (!legend.contains(e.target) && !legendToggle.contains(e.target)) {
+                    legend.classList.remove('show');
+                    legendToggle.classList.remove('active');
+                }
+            }
+        });
+    })();
+    </script>
+
 </body>
 </html>
