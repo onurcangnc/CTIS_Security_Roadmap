@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CTIS Security Tree - Circular View</title>
     <script src="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/es6/jsmind.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/style/jsmind.css">
@@ -224,158 +224,135 @@
         }
 
     
-/* ========== MOBILE RESPONSIVE FIX ========== */
+/* ========== MOBILE RESPONSIVE - ACTIVE ========== */
 @media screen and (max-width: 768px) {
-    /* Hamburger Button */
+    /* Show hamburger */
     .mobile-toggle {
         display: flex !important;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        background: transparent !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 44px !important;
+        height: 44px !important;
+        background: none !important;
         border: none !important;
         color: #fff !important;
-        font-size: 24px !important;
+        font-size: 28px !important;
         cursor: pointer !important;
-        z-index: 10005 !important;
-        position: relative;
+        z-index: 99999 !important;
+        -webkit-tap-highlight-color: transparent !important;
     }
     
-    /* Mobile Menu - Full Screen Overlay */
+    /* Full screen menu */
     .nav-links {
         position: fixed !important;
         top: 60px !important;
         left: 0 !important;
         right: 0 !important;
         bottom: 0 !important;
-        width: 100vw !important;
+        width: 100% !important;
         height: calc(100vh - 60px) !important;
-        height: calc(100dvh - 60px) !important;
         background: #0a0a0f !important;
         display: none !important;
         flex-direction: column !important;
         overflow-y: auto !important;
-        overflow-x: hidden !important;
-        z-index: 10004 !important;
+        z-index: 99998 !important;
         padding: 0 !important;
         margin: 0 !important;
-        -webkit-overflow-scrolling: touch;
     }
     
-    .nav-links.open {
+    .nav-links.mobile-open {
         display: flex !important;
     }
     
-    /* Menu Items */
-    .nav-links > a.nav-link,
+    /* Menu items */
     .nav-links > .nav-link {
         display: block !important;
         width: 100% !important;
-        padding: 20px 24px !important;
-        margin: 0 !important;
-        font-size: 17px !important;
-        font-weight: 500 !important;
-        color: #ffffff !important;
+        padding: 18px 24px !important;
+        font-size: 18px !important;
+        color: #fff !important;
         text-decoration: none !important;
         border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-        background: transparent !important;
         box-sizing: border-box !important;
     }
     
-    /* Dropdown Container */
+    /* Dropdown container */
     .nav-dropdown {
         width: 100% !important;
         border-bottom: 1px solid rgba(255,255,255,0.1) !important;
     }
     
-    /* Dropdown Button */
+    /* Dropdown button */
     .nav-dropdown-btn {
         display: flex !important;
         width: 100% !important;
-        padding: 20px 24px !important;
-        margin: 0 !important;
-        font-size: 17px !important;
-        font-weight: 500 !important;
-        color: #ffffff !important;
+        padding: 18px 24px !important;
+        font-size: 18px !important;
+        color: #fff !important;
         background: transparent !important;
         border: none !important;
         cursor: pointer !important;
         justify-content: space-between !important;
         align-items: center !important;
         box-sizing: border-box !important;
-        font-family: inherit !important;
     }
     
     .nav-dropdown-btn::after {
-        content: '▼' !important;
+        content: "▼" !important;
         font-size: 12px !important;
-        transition: transform 0.3s !important;
-        margin-left: auto !important;
+        transition: transform 0.2s !important;
     }
     
-    .nav-dropdown.open > .nav-dropdown-btn::after {
+    .nav-dropdown.dropdown-open > .nav-dropdown-btn::after {
         transform: rotate(180deg) !important;
     }
     
-    /* Dropdown Content - Hidden by default */
+    /* Dropdown content - hidden */
     .nav-dropdown-content {
         display: none !important;
         position: static !important;
         width: 100% !important;
-        background: rgba(255,255,255,0.03) !important;
+        background: rgba(255,255,255,0.02) !important;
         border: none !important;
-        border-radius: 0 !important;
         box-shadow: none !important;
         padding: 0 !important;
-        margin: 0 !important;
     }
     
-    /* Dropdown Open State */
-    .nav-dropdown.open > .nav-dropdown-content {
+    /* Dropdown content - visible */
+    .nav-dropdown.dropdown-open > .nav-dropdown-content {
         display: block !important;
     }
     
-    /* Disable hover on mobile */
+    /* Disable hover */
     .nav-dropdown:hover > .nav-dropdown-content {
         display: none !important;
     }
-    .nav-dropdown.open:hover > .nav-dropdown-content {
+    .nav-dropdown.dropdown-open:hover > .nav-dropdown-content {
         display: block !important;
     }
     
-    /* Dropdown Links */
+    /* Dropdown links */
     .nav-dropdown-content a {
         display: block !important;
-        width: 100% !important;
         padding: 16px 24px 16px 48px !important;
-        font-size: 15px !important;
+        font-size: 16px !important;
         color: rgba(255,255,255,0.8) !important;
         text-decoration: none !important;
         border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-        box-sizing: border-box !important;
-    }
-    
-    .nav-dropdown-content a:active {
-        background: rgba(255,255,255,0.1) !important;
     }
     
     .nav-dropdown-content .dropdown-header {
-        padding: 14px 24px 10px 48px !important;
+        padding: 12px 24px 8px 48px !important;
         font-size: 11px !important;
         color: #00d4aa !important;
-        text-transform: uppercase !important;
-        letter-spacing: 1px !important;
     }
 }
-/* ========== END MOBILE FIX ========== */
+/* ========== END MOBILE ========== */
 
 /* Circular Panels Mobile */
 @media screen and (max-width: 768px) {
-    .category-panel, .stats-panel, .filter-panel {
-        display: none !important;
-    }
-    .category-panel.show {
+    .category-panel, .stats-panel, .filter-panel { display: none !important; }
+    .category-panel.panel-visible {
         display: block !important;
         position: fixed !important;
         top: 70px !important;
@@ -384,32 +361,25 @@
         max-height: 50vh !important;
         overflow-y: auto !important;
         z-index: 9998 !important;
-        background: rgba(10,10,15,0.98) !important;
-        border: 1px solid rgba(0,212,170,0.3) !important;
-        border-radius: 12px !important;
     }
-    .filter-panel.show {
+    .filter-panel.panel-visible {
         display: block !important;
         position: fixed !important;
         top: 70px !important;
         right: 10px !important;
-        left: auto !important;
         z-index: 9998 !important;
-        background: rgba(10,10,15,0.98) !important;
-        border: 1px solid rgba(0,212,170,0.3) !important;
-        border-radius: 12px !important;
     }
-    .stats-panel.show {
+    .stats-panel.panel-visible {
         display: block !important;
         position: fixed !important;
         bottom: 80px !important;
         left: 10px !important;
         z-index: 9998 !important;
-        background: rgba(10,10,15,0.98) !important;
-        border: 1px solid rgba(0,212,170,0.3) !important;
-        border-radius: 12px !important;
     }
-    .panel-toggles {
+}
+.mobile-panel-btns { display: none; }
+@media screen and (max-width: 768px) {
+    .mobile-panel-btns {
         display: flex !important;
         position: fixed !important;
         bottom: 15px !important;
@@ -417,12 +387,12 @@
         gap: 10px !important;
         z-index: 9999 !important;
     }
-    .panel-toggle {
+    .panel-btn {
         width: 50px !important;
         height: 50px !important;
         background: rgba(10,10,15,0.95) !important;
         border: 2px solid rgba(0,212,170,0.5) !important;
-        border-radius: 14px !important;
+        border-radius: 12px !important;
         color: #00d4aa !important;
         font-size: 20px !important;
         cursor: pointer !important;
@@ -430,30 +400,26 @@
         align-items: center !important;
         justify-content: center !important;
     }
-    .panel-toggle.active {
-        background: #00d4aa !important;
-        color: #000 !important;
-    }
+    .panel-btn.active { background: #00d4aa !important; color: #000 !important; }
 }
-.panel-toggles { display: none; }
 
 </style>
 </head>
 <body>
-    <button class="legend-toggle" id="legendToggle">📋</button>
+    <button class="legend-toggle">📋</button>
 
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">
                 <span>🎯</span> Security Overview
             </a>
-            <button class="mobile-toggle" id="mobileToggle">☰</button>
+            <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('mobile-open'); document.body.style.overflow = document.getElementById('navMenu').classList.contains('mobile-open') ? 'hidden' : '';">☰</button>
             <div class="nav-links" id="navMenu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="mindmap-circular.html" class="nav-link">🎯 Overview</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">Offensive</button>
+                    <button class="nav-dropdown-btn" onclick="if(window.innerWidth<=768){event.stopPropagation();this.parentElement.classList.toggle('dropdown-open');}">Offensive</button>
                     <div class="nav-dropdown-content">
                         <span class="dropdown-header">Mind Maps</span>
                         <a href="mindmap-web.html">🌐 Web Pentesting</a>
@@ -469,7 +435,7 @@
                 <a href="mindmap-ai.html" class="nav-link">🤖 AI</a>
                 
                 <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">Resources</button>
+                    <button class="nav-dropdown-btn" onclick="if(window.innerWidth<=768){event.stopPropagation();this.parentElement.classList.toggle('dropdown-open');}">Resources</button>
                     <div class="nav-dropdown-content">
                         <a href="paths.html">📋 Learning Paths</a>
                         <a href="modules.html">📦 HTB Modules</a>
@@ -828,116 +794,98 @@
             }
         });
     </script>
+
 <script>
-(function() {
-    'use strict';
+// ===== MOBILE MENU SCRIPT =====
+document.addEventListener('DOMContentLoaded', function() {
+    var menuBtn = document.querySelector('.mobile-toggle');
+    var menu = document.getElementById('navMenu') || document.querySelector('.nav-links');
     
-    // Mobile Menu Toggle
-    var hamburger = document.querySelector('.mobile-toggle');
-    var navLinks = document.querySelector('.nav-links') || document.getElementById('navMenu');
+    if (!menuBtn || !menu) return;
     
-    if (hamburger && navLinks) {
-        // Make sure navMenu id exists
-        if (!navLinks.id) navLinks.id = 'navMenu';
-        
-        hamburger.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            navLinks.classList.toggle('open');
-            document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-        };
-    }
+    // Hamburger click
+    menuBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        menu.classList.toggle('mobile-open');
+        document.body.style.overflow = menu.classList.contains('mobile-open') ? 'hidden' : '';
+    });
     
-    // Dropdown Toggles
-    var dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
-    dropdownBtns.forEach(function(btn) {
-        btn.onclick = function(e) {
+    // Dropdown clicks
+    var ddBtns = document.querySelectorAll('.nav-dropdown-btn');
+    for (var i = 0; i < ddBtns.length; i++) {
+        ddBtns[i].addEventListener('click', function(e) {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
                 e.stopPropagation();
-                var parent = this.parentElement;
-                var isOpen = parent.classList.contains('open');
+                var dd = this.parentElement;
+                var wasOpen = dd.classList.contains('dropdown-open');
                 // Close all
-                document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                    d.classList.remove('open');
-                });
-                // Toggle current
-                if (!isOpen) {
-                    parent.classList.add('open');
+                var allDd = document.querySelectorAll('.nav-dropdown');
+                for (var j = 0; j < allDd.length; j++) {
+                    allDd[j].classList.remove('dropdown-open');
                 }
+                // Toggle
+                if (!wasOpen) dd.classList.add('dropdown-open');
             }
-        };
-    });
+        });
+    }
     
-    // Close menu on link click
-    var allLinks = document.querySelectorAll('.nav-links a');
-    allLinks.forEach(function(link) {
-        link.onclick = function() {
-            if (window.innerWidth <= 768 && navLinks) {
-                setTimeout(function() {
-                    navLinks.classList.remove('open');
-                    document.body.style.overflow = '';
-                    document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-                        d.classList.remove('open');
-                    });
-                }, 150);
+    // Close on link click
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                menu.classList.remove('mobile-open');
+                document.body.style.overflow = '';
             }
-        };
-    });
-    
-    // Close on resize
-    window.onresize = function() {
-        if (window.innerWidth > 768 && navLinks) {
-            navLinks.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-    };
-})();
+        });
+    }
+});
 </script>
 
 <script>
-(function() {
-    var catPanel = document.querySelector('.category-panel');
-    var statsPanel = document.querySelector('.stats-panel');
-    var filterPanel = document.querySelector('.filter-panel');
+// Panel Toggles
+document.addEventListener('DOMContentLoaded', function() {
+    var cat = document.querySelector('.category-panel');
+    var stats = document.querySelector('.stats-panel');
+    var filter = document.querySelector('.filter-panel');
+    if (!cat) return;
     
-    if (!catPanel) return;
+    // Create buttons
+    var div = document.createElement('div');
+    div.className = 'mobile-panel-btns';
+    div.innerHTML = '<button class="panel-btn" data-p="cat">🎯</button><button class="panel-btn" data-p="stats">📊</button><button class="panel-btn" data-p="filter">🔍</button>';
+    document.body.appendChild(div);
     
-    // Create toggles
-    var container = document.createElement('div');
-    container.className = 'panel-toggles';
-    container.innerHTML = '<button class="panel-toggle" data-p="cat">🎯</button><button class="panel-toggle" data-p="stats">📊</button><button class="panel-toggle" data-p="filter">🔍</button>';
-    document.body.appendChild(container);
+    var panels = {cat: cat, stats: stats, filter: filter};
     
-    var panels = {cat: catPanel, stats: statsPanel, filter: filterPanel};
-    
-    container.onclick = function(e) {
-        var btn = e.target.closest('.panel-toggle');
+    div.addEventListener('click', function(e) {
+        var btn = e.target.closest('.panel-btn');
         if (!btn) return;
         e.preventDefault();
-        e.stopPropagation();
-        
-        var key = btn.dataset.p;
-        var panel = panels[key];
-        var wasOpen = panel && panel.classList.contains('show');
+        var p = panels[btn.dataset.p];
+        var wasOpen = p && p.classList.contains('panel-visible');
         
         // Close all
-        Object.values(panels).forEach(function(p) { if(p) p.classList.remove('show'); });
-        container.querySelectorAll('.panel-toggle').forEach(function(b) { b.classList.remove('active'); });
+        for (var k in panels) { if (panels[k]) panels[k].classList.remove('panel-visible'); }
+        var btns = div.querySelectorAll('.panel-btn');
+        for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
         
-        if (!wasOpen && panel) {
-            panel.classList.add('show');
+        if (!wasOpen && p) {
+            p.classList.add('panel-visible');
             btn.classList.add('active');
         }
-    };
+    });
     
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.panel-toggle, .category-panel, .stats-panel, .filter-panel')) {
-            Object.values(panels).forEach(function(p) { if(p) p.classList.remove('show'); });
-            container.querySelectorAll('.panel-toggle').forEach(function(b) { b.classList.remove('active'); });
+        if (!e.target.closest('.panel-btn, .category-panel, .stats-panel, .filter-panel')) {
+            for (var k in panels) { if (panels[k]) panels[k].classList.remove('panel-visible'); }
+            var btns = div.querySelectorAll('.panel-btn');
+            for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
         }
     });
-})();
+});
 </script>
 
 </body>
