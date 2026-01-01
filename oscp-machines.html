@@ -104,11 +104,16 @@
                 left: 0; 
                 right: 0; 
                 bottom: 0;
-                background: rgba(10,10,15,0.98); 
-                flex-direction: column; 
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: rgba(10,10,15,0.99); 
+                flex-direction: column;
+                align-items: stretch;
                 padding: 20px; 
-                overflow-y: auto; 
+                overflow-y: auto;
+                overflow-x: hidden;
                 z-index: 10000;
+                -webkit-overflow-scrolling: touch;
             }
             .nav-links.open { display: flex; }
             .mobile-toggle { display: block; }
