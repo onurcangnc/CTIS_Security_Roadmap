@@ -161,7 +161,7 @@
                 overflow-y: auto; 
                 z-index: 1001;
             }
-            .nav-links.open { display: flex; }
+            .nav-links.open { display: flex !important; }
             .mobile-toggle { display: block; }
             .nav-link { padding: 14px; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
             .nav-dropdown { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -176,7 +176,7 @@
                 display: none;
             }
             .nav-dropdown:hover .nav-dropdown-content { display: none; }
-            .nav-dropdown.open .nav-dropdown-content { display: block; }
+            .nav-dropdown.open .nav-dropdown-content { display: block !important; }
             .nav-dropdown-content a { padding: 12px 14px; font-size: 0.95rem; }
             #jsmind_container { top: 60px; }
             
@@ -221,159 +221,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-/* ========== MOBILE RESPONSIVE - ACTIVE ========== */
-@media screen and (max-width: 768px) {
-    /* Show hamburger */
-    .mobile-toggle {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 44px !important;
-        height: 44px !important;
-        background: none !important;
-        border: none !important;
-        color: #fff !important;
-        font-size: 28px !important;
-        cursor: pointer !important;
-        z-index: 99999 !important;
-        -webkit-tap-highlight-color: transparent !important;
-    }
-    
-    /* Full screen menu */
-    .nav-links {
-        position: fixed !important;
-        top: 60px !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: 100% !important;
-        height: calc(100vh - 60px) !important;
-        background: #0a0a0f !important;
-        display: none !important;
-        flex-direction: column !important;
-        overflow-y: auto !important;
-        z-index: 99998 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .nav-links.open {
-        display: flex !important;
-    }
-    
-    /* Menu items */
-    .nav-links > .nav-link {
-        display: block !important;
-        width: 100% !important;
-        padding: 18px 24px !important;
-        font-size: 18px !important;
-        color: #fff !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Dropdown container */
-    .nav-dropdown {
-        width: 100% !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-    }
-    
-    /* Dropdown button */
-    .nav-dropdown-btn {
-        display: flex !important;
-        width: 100% !important;
-        padding: 18px 24px !important;
-        font-size: 18px !important;
-        color: #fff !important;
-        background: transparent !important;
-        border: none !important;
-        cursor: pointer !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        box-sizing: border-box !important;
-    }
-    
-    .nav-dropdown-btn::after {
-        content: "▼" !important;
-        font-size: 12px !important;
-        transition: transform 0.2s !important;
-    }
-    
-    .nav-dropdown.open > .nav-dropdown-btn::after {
-        transform: rotate(180deg) !important;
-    }
-    
-    /* Dropdown content - hidden */
-    .nav-dropdown-content {
-        display: none !important;
-        position: static !important;
-        width: 100% !important;
-        background: rgba(255,255,255,0.02) !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-    }
-    
-    /* Dropdown content - visible */
-    .nav-dropdown.open > .nav-dropdown-content {
-        display: block !important;
-    }
-    
-    /* Disable hover */
-    .nav-dropdown:hover > .nav-dropdown-content {
-        display: none !important;
-    }
-    .nav-dropdown.open:hover > .nav-dropdown-content {
-        display: block !important;
-    }
-    
-    /* Dropdown links */
-    .nav-dropdown-content a {
-        display: block !important;
-        padding: 16px 24px 16px 48px !important;
-        font-size: 16px !important;
-        color: rgba(255,255,255,0.8) !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-    }
-    
-    .nav-dropdown-content .dropdown-header {
-        padding: 12px 24px 8px 48px !important;
-        font-size: 11px !important;
-        color: #00d4aa !important;
-    }
-}
-/* ========== END MOBILE ========== */
-
-/* Circular Panels Mobile */
-@media screen and (max-width: 768px) {
-    .category-panel, .stats-panel, .filter-panel { display: none !important; }
-    .category-panel.panel-visible {
-        display: block !important;
-        position: fixed !important;
-        top: 70px !important;
-        left: 10px !important;
-        right: 10px !important;
-        max-height: 50vh !important;
-        overflow-y: auto !important;
-        z-index: 9998 !important;
-    }
-    .filter-panel.panel-visible {
-        display: block !important;
-        position: fixed !important;
-        top: 70px !important;
-        right: 10px !important;
-        z-index: 9998 !important;
-    }
-    .stats-panel.panel-visible {
-        display: block !important;
-        position: fixed !important;
-        bottom: 80px !important;
-        left: 10px !important;
-        z-index: 9998 !important;
-    }
-}
 .mobile-panel-btns { display: none; }
 @media screen and (max-width: 768px) {
     .mobile-panel-btns {
@@ -399,6 +246,95 @@
     }
     .panel-btn.active { background: #00d4aa !important; color: #000 !important; }
 }
+
+
+    
+
+
+    /* ===== MOBILE MENU ULTRA FIX ===== */
+    @media screen and (max-width: 768px) {
+        #navMenu, .nav-links {
+            display: none !important;
+            position: fixed !important;
+            top: 60px !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: calc(100vh - 60px) !important;
+            min-height: calc(100vh - 60px) !important;
+            max-height: calc(100vh - 60px) !important;
+            background: #0a0a0f !important;
+            flex-direction: column !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow-y: auto !important;
+            z-index: 999999 !important;
+            box-sizing: border-box !important;
+        }
+        #navMenu.open, .nav-links.open {
+            display: flex !important;
+        }
+        .nav-links > .nav-link,
+        .nav-links > .nav-dropdown,
+        #navMenu > .nav-link,
+        #navMenu > .nav-dropdown {
+            display: block !important;
+            width: 100% !important;
+            flex-shrink: 0 !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            box-sizing: border-box !important;
+        }
+        .nav-links > .nav-link,
+        #navMenu > .nav-link {
+            padding: 18px 20px !important;
+            font-size: 16px !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+        .nav-dropdown-btn {
+            display: flex !important;
+            width: 100% !important;
+            padding: 18px 20px !important;
+            font-size: 16px !important;
+            color: #fff !important;
+            background: transparent !important;
+            border: none !important;
+            justify-content: space-between !important;
+            cursor: pointer !important;
+            text-align: left !important;
+        }
+        .nav-dropdown-content {
+            display: none !important;
+            position: static !important;
+            width: 100% !important;
+            background: rgba(255,255,255,0.03) !important;
+            padding: 0 !important;
+            padding-left: 20px !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .nav-dropdown.open > .nav-dropdown-content {
+            display: block !important;
+        }
+        .nav-dropdown:hover > .nav-dropdown-content {
+            display: none !important;
+        }
+        .nav-dropdown-content a {
+            display: block !important;
+            padding: 14px 20px !important;
+            color: rgba(255,255,255,0.8) !important;
+            font-size: 15px !important;
+            text-decoration: none !important;
+        }
+        .mobile-toggle {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 9999999 !important;
+        }
+    }
+    /* ===== END MOBILE MENU ULTRA FIX ===== */
 
 </style>
 </head>
@@ -491,7 +427,23 @@
             "m_mobile": "mindmap-mobile.html",
             // Platforms
             "p_htb": "https://academy.hackthebox.com",
+            "p_htb": "https://academy.hackthebox.com",
             "p_thm": "https://tryhackme.com",
+            "web_htb": "https://academy.hackthebox.com",
+            "web_thm": "https://tryhackme.com",
+            "net_htb": "https://academy.hackthebox.com",
+            "net_thm": "https://tryhackme.com",
+            "wifi_htb": "https://academy.hackthebox.com",
+            "wifi_thm": "https://tryhackme.com",
+            "mob_htb": "https://academy.hackthebox.com",
+            "mob_thm": "https://tryhackme.com",
+            "ad_oscp": "https://www.offsec.com/courses/pen-200/",
+            "ad_osep": "https://www.offsec.com/courses/pen-300/",
+            "rt_cpts": "https://academy.hackthebox.com/preview/certifications/htb-certified-penetration-testing-specialist",
+            "rt_cape": "https://academy.hackthebox.com/preview/certifications/htb-certified-active-directory-pentesting-expert",
+            "def_cdsa": "https://academy.hackthebox.com/preview/certifications/htb-certified-defensive-security-analyst",
+            "def_secplus": "https://www.comptia.org/certifications/security",
+            "def_cysa": "https://www.comptia.org/certifications/cybersecurity-analyst",
             // Learning Paths
             "path_htb": "https://academy.hackthebox.com/paths",
             "path_thm": "https://tryhackme.com/paths",
@@ -524,36 +476,36 @@
                     // WEB SECURITY
                     { id: "web", topic: "🌐 WEB", direction: "right", children: [
                         {id: "m_web", topic: "Web Mind Map"},
-                        {id: "p_htb", topic: "HTB Academy"},
-                        {id: "p_thm", topic: "TryHackMe"},
+                        {id: "web_htb", topic: "HTB Academy"},
+                        {id: "web_thm", topic: "TryHackMe"},
                         {id: "path_htb", topic: "HTB Paths"},
                         {id: "path_thm", topic: "THM Paths"}
                     ]},
                     // NETWORK & INFRASTRUCTURE
                     { id: "network", topic: "🔌 NETWORK", direction: "right", children: [
                         {id: "m_network", topic: "Network Mind Map"},
-                        {id: "p_htb", topic: "HTB Academy"},
-                        {id: "p_thm", topic: "TryHackMe"}
+                        {id: "net_htb", topic: "HTB Academy"},
+                        {id: "net_thm", topic: "TryHackMe"}
                     ]},
                     // ACTIVE DIRECTORY
                     { id: "ad", topic: "🏢 AD", direction: "right", children: [
                         {id: "m_ad", topic: "AD Mind Map"},
-                        {id: "c_oscp", topic: "OSCP"},
-                        {id: "c_osep", topic: "OSEP"},
+                        {id: "ad_oscp", topic: "OSCP"},
+                        {id: "ad_osep", topic: "OSEP"},
                         {id: "c_crto", topic: "CRTO"}
                     ]},
                     // RED TEAM
                     { id: "redteam", topic: "🎯 RED TEAM", direction: "left", children: [
                         {id: "m_redteam", topic: "Red Team Mind Map"},
-                        {id: "c_cpts", topic: "CPTS"},
-                        {id: "c_cape", topic: "CAPE (AD Expert)"}
+                        {id: "rt_cpts", topic: "CPTS"},
+                        {id: "rt_cape", topic: "CAPE (AD Expert)"}
                     ]},
                     // DEFENSIVE
                     { id: "defensive", topic: "🛡️ DEFENSIVE", direction: "left", children: [
                         {id: "m_defensive", topic: "Defensive Mind Map"},
-                        {id: "c_cdsa", topic: "CDSA"},
-                        {id: "c_secplus", topic: "Security+"},
-                        {id: "c_cysa", topic: "CySA+"}
+                        {id: "def_cdsa", topic: "CDSA"},
+                        {id: "def_secplus", topic: "Security+"},
+                        {id: "def_cysa", topic: "CySA+"}
                     ]},
                     // AI SECURITY
                     { id: "ai", topic: "🤖 AI", direction: "left", children: [
@@ -563,14 +515,14 @@
                     // WI-FI
                     { id: "wifi", topic: "📡 WI-FI", direction: "right", children: [
                         {id: "m_wifi", topic: "Wi-Fi Mind Map"},
-                        {id: "p_htb", topic: "HTB Academy"},
-                        {id: "p_thm", topic: "TryHackMe"}
+                        {id: "wifi_htb", topic: "HTB Academy"},
+                        {id: "wifi_thm", topic: "TryHackMe"}
                     ]},
                     // MOBILE
                     { id: "mobile", topic: "📱 MOBILE", direction: "right", children: [
                         {id: "m_mobile", topic: "Mobile Mind Map"},
-                        {id: "p_htb", topic: "HTB Academy"},
-                        {id: "p_thm", topic: "TryHackMe"}
+                        {id: "mob_htb", topic: "HTB Academy"},
+                        {id: "mob_thm", topic: "TryHackMe"}
                     ]},
                     // CERTIFICATIONS CENTER
                     { id: "certs", topic: "🏆 CERTIFICATIONS", direction: "left", children: [
@@ -729,7 +681,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 
 <script>
 // Mobile Menu
